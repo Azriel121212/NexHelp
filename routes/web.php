@@ -47,4 +47,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
+    
+    // Admin Routes
+    Route::get('/admin/dashboard', [\App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::post('/admin/task/{id}/delete', [\App\Http\Controllers\AdminController::class, 'destroyTask'])->name('admin.task.destroy');
 });

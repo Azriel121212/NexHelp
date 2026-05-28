@@ -4,14 +4,19 @@
 @section('content')
 <!-- TopAppBar -->
 <header class="bg-surface text-primary shadow-sm flex justify-between items-center px-4 py-2 w-full sticky top-0 z-50">
-    <a href="{{ route('profile') }}" class="flex items-center gap-3 hover:bg-surface-bright p-2 -ml-2 rounded-xl transition-colors">
-        <img alt="User Profile" class="w-10 h-10 rounded-full object-cover shadow-sm border border-surface-bright" src="{{ Auth::user()->avatar_url }}"/>
+    <a href="{{ route('profile') }}" class="flex items-center gap-2 sm:gap-3 hover:bg-surface-bright p-2 -ml-2 rounded-xl transition-colors">
+        <img alt="User Profile" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover shadow-sm border border-surface-bright" src="{{ Auth::user()->avatar_url }}"/>
         <div>
-            <h1 class="font-headline-md text-2xl text-primary font-extrabold tracking-tight">NexHelp</h1>
-            <p class="font-label-sm text-xs text-on-surface-variant">{{ $user->name }} • {{ $user->faculty }}</p>
+            <h1 class="font-headline-md text-xl sm:text-2xl text-primary font-extrabold tracking-tight">NexHelp</h1>
+            <p class="font-label-sm text-[10px] sm:text-xs text-on-surface-variant line-clamp-1">{{ $user->name }}</p>
         </div>
     </a>
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-1 sm:gap-3">
+        @if($user->is_admin)
+        <a href="{{ route('admin.dashboard') }}" class="hidden sm:flex items-center justify-center bg-error-container text-on-error-container hover:bg-error hover:text-white p-2 rounded-full transition-colors" title="Admin Panel">
+            <span class="material-symbols-outlined">admin_panel_settings</span>
+        </a>
+        @endif
         <a href="{{ route('activity.index') }}" class="flex items-center justify-center bg-surface-bright hover:bg-surface-container-high p-2 rounded-full transition-colors relative" title="Aktivitas">
             <span class="material-symbols-outlined text-on-surface-variant">receipt_long</span>
             @if(isset($activeTaskCount) && $activeTaskCount > 0)
@@ -34,7 +39,14 @@
     </div>
 </header>
 
-<main class="px-4 py-4 max-w-3xl mx-auto space-y-4 w-full">
+<main class="px-4 py-4 max-w-7xl mx-auto space-y-4 w-full">
+    @if($user->is_admin)
+    <div class="sm:hidden mb-2">
+        <a href="{{ route('admin.dashboard') }}" class="flex items-center justify-center gap-2 bg-error-container text-on-error-container hover:bg-error hover:text-white p-3 rounded-xl transition-colors font-bold w-full shadow-sm">
+            <span class="material-symbols-outlined">admin_panel_settings</span> Buka Panel Admin
+        </a>
+    </div>
+    @endif
     @if(session('success'))
         <div class="bg-primary-container text-on-primary-container p-4 rounded-xl text-sm mb-2 shadow-sm border border-primary-fixed">
             <span class="font-bold">Mantap!</span> {{ session('success') }}
@@ -79,10 +91,11 @@
     </section>
 
     <!-- Task Feed Dynamic from Database -->
-    <section class="space-y-4 pb-24">
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-24">
         @forelse($tasks as $task)
-        <article class="bg-surface rounded-DEFAULT p-4 shadow-level-1 {{ $task->category == 'Urgent' ? 'border-l-4 border-error' : '' }}">
-            <!-- Pembuat Tugas -->
+        <article class="bg-surface rounded-DEFAULT p-4 shadow-level-1 {{ $task->category == 'Urgent' ? 'border-l-4 border-error' : '' }} flex flex-col justify-between h-full">
+            <div>
+                <!-- Pembuat Tugas -->
             <div class="flex items-center gap-3 mb-3 border-b border-surface-bright pb-3">
                 <img src="{{ $task->requester->avatar_url }}" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
                 <div>
@@ -104,8 +117,9 @@
             <a href="{{ route('task.show', $task->id) }}" class="hover:underline block">
                 <h3 class="text-lg font-bold text-on-surface mb-3">{{ $task->title }}</h3>
             </a>
+            </div>
             <div class="flex justify-between items-end mt-4">
-                <div class="flex items-center text-on-surface-variant text-sm gap-1">
+                <div class="flex items-center text-on-surface-variant text-xs sm:text-sm gap-1">
                     <span class="material-symbols-outlined text-[16px]">location_on</span>
                     {{ $task->location }}
                 </div>
@@ -142,7 +156,7 @@
             </div>
         </article>
         @empty
-        <div class="bg-surface rounded-2xl p-8 text-center shadow-sm border-2 border-dashed border-outline-variant mt-8">
+        <div class="col-span-full bg-surface rounded-2xl p-8 text-center shadow-sm border-2 border-dashed border-outline-variant mt-8">
             <span class="material-symbols-outlined text-5xl text-outline mb-4">post_add</span>
             <h3 class="text-lg font-bold text-on-surface mb-2">Belum ada request bantuan nih!</h3>
             <p class="text-on-surface-variant text-sm mb-6">Jangan malu-malu, jadilah yang pertama buat minta tolong ke anak-anak kampus!</p>

@@ -51,16 +51,104 @@
             }
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body { background-color: #f8f9fa; -webkit-tap-highlight-color: transparent; min-height: max(884px, 100dvh); }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .shadow-level-1 { box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.04); }
+        
+        /* Loading Animation */
+        #page-loader {
+            position: fixed;
+            inset: 0;
+            background: #f8f9fa;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #dde1ff;
+            border-top: 5px solid #0040df;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
     </style>
 </head>
 <body class="bg-background text-on-background font-body-md min-h-screen flex flex-col pb-[80px]">
 
+    <!-- Loading Screen -->
+    <div id="page-loader">
+        <div class="spinner"></div>
+        <p class="mt-4 text-primary font-bold animate-pulse">Menyiapkan NexHelp...</p>
+    </div>
+
     @yield('content')
+
+    <script>
+        // Remove loader on page load
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('page-loader').classList.add('loader-hidden');
+            }, 300); // Small delay for visual effect
+        });
+    </script>
+
+    @if (session('welcome_message'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: 'Welcome Back!',
+                text: '{{ session('welcome_message') }}',
+                icon: 'success',
+                confirmButtonColor: '#0040df',
+                confirmButtonText: 'Lanjut'
+            });
+        });
+    </script>
+    @endif
+    
+    @if (session('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true
+            });
+        });
+    </script>
+    @endif
+    
+    @if (session('error'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '{{ session('error') }}',
+                confirmButtonColor: '#0040df'
+            });
+        });
+    </script>
+    @endif
 
 </body>
 </html>

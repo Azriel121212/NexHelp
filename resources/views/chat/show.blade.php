@@ -49,15 +49,33 @@
 <!-- Chat Input Area (Sticky Bottom) -->
 <div class="fixed bottom-0 left-0 right-0 bg-surface border-t border-surface-container-high p-3 z-50">
     <div class="max-w-2xl mx-auto w-full">
-        <form action="{{ route('chat.store', $task->id) }}" method="POST" class="flex items-center gap-2">
+        <form id="chat-form" action="{{ route('chat.store', $task->id) }}" method="POST" class="flex items-center gap-2">
             @csrf
-            <textarea name="message" rows="1" placeholder="Ketik pesan..." class="flex-1 bg-surface-container-lowest border border-outline-variant rounded-full px-4 py-2 text-sm focus:ring-primary focus:border-primary resize-none hide-scrollbar" required autofocus oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
-            <button type="submit" class="bg-primary text-on-primary w-10 h-10 rounded-full flex items-center justify-center shrink-0 hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
-                <span class="material-symbols-outlined text-[20px]">send</span>
+            <textarea name="message" id="chat-message" rows="1" placeholder="Ketik pesan..." class="flex-1 bg-surface-container-lowest border border-outline-variant rounded-full px-4 py-2 text-sm focus:ring-primary focus:border-primary resize-none hide-scrollbar" required autofocus oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
+            <button type="submit" id="chat-submit-btn" class="bg-primary text-on-primary w-10 h-10 rounded-full flex items-center justify-center shrink-0 hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed">
+                <span class="material-symbols-outlined text-[20px]" id="chat-submit-icon">send</span>
             </button>
         </form>
     </div>
 </div>
+
+<script>
+    document.getElementById('chat-form').addEventListener('submit', function(e) {
+        const btn = document.getElementById('chat-submit-btn');
+        const icon = document.getElementById('chat-submit-icon');
+        const msg = document.getElementById('chat-message').value.trim();
+        
+        if(msg === '') {
+            e.preventDefault();
+            return;
+        }
+
+        // Disable button to prevent spam
+        btn.disabled = true;
+        icon.innerText = 'hourglass_empty';
+        icon.classList.add('animate-pulse');
+    });
+</script>
 
 <script>
     // Auto-scroll to bottom of chat

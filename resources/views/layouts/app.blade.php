@@ -150,5 +150,37 @@
     </script>
     @endif
 
+    <!-- Global form double submit prevention -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    // Check if form is valid before disabling
+                    if (form.checkValidity && !form.checkValidity()) {
+                        return;
+                    }
+                    
+                    const submitBtns = form.querySelectorAll('button[type="submit"]');
+                    submitBtns.forEach(btn => {
+                        // Don't disable if button has a 'no-disable' class
+                        if (!btn.classList.contains('no-disable')) {
+                            // Let the form submit, but disable the button shortly after
+                            setTimeout(() => {
+                                btn.disabled = true;
+                                btn.classList.add('opacity-50', 'cursor-not-allowed');
+                                // Optionally change text or icon
+                                if(btn.innerText.trim() !== '' && !btn.querySelector('.material-symbols-outlined')) {
+                                    btn.dataset.originalText = btn.innerText;
+                                    btn.innerText = 'Memproses...';
+                                }
+                            }, 10);
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
 </body>
 </html>

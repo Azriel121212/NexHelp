@@ -33,7 +33,13 @@ class User extends Authenticatable
     public function getAvatarUrlAttribute()
     {
         if ($this->avatar) {
-            return asset('storage/' . $this->avatar);
+            if (str_starts_with($this->avatar, 'http')) {
+                return $this->avatar;
+            }
+            
+            if (!env('VERCEL')) {
+                return asset('storage/' . $this->avatar);
+            }
         }
 
         // Generate default avatar using ui-avatars

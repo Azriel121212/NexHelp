@@ -23,7 +23,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            $request->session()->flash('welcome_message', 'Hai ' . Auth::user()->name . '! Selamat datang kembali di NexHelp.');
+            $request->session()->flash('welcome_message', 'Hai ' . Auth::user()->name . '! Selamat datang kembali di KawanKampus.');
             return redirect()->intended('/');
         }
 
@@ -64,7 +64,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        $request->session()->flash('welcome_message', 'Hai ' . $user->name . '! Akun lu berhasil dibuat. Selamat datang di NexHelp!');
+        $request->session()->flash('welcome_message', 'Hai ' . $user->name . '! Akun lu berhasil dibuat. Selamat datang di KawanKampus!');
 
         return redirect('/');
     }

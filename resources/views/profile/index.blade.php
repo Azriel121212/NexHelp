@@ -7,7 +7,7 @@
         <a href="{{ route('home') }}" class="p-2 rounded-full hover:bg-surface-bright transition-colors text-on-surface">
             <span class="material-symbols-outlined">arrow_back</span>
         </a>
-        <h1 class="font-headline-md text-2xl font-extrabold tracking-tight">NexHelp</h1>
+        <h1 class="font-headline-md text-2xl font-extrabold tracking-tight">KawanKampus</h1>
     </div>
     <a href="{{ route('wallet.index') }}" class="flex items-center gap-1.5 bg-[#FFB400] text-[#4A3400] px-3 py-1.5 rounded-full font-bold text-sm shadow-sm hover:opacity-90 transition-opacity">
         <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">monetization_on</span>

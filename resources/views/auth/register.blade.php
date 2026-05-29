@@ -5,7 +5,7 @@
 <div class="flex-grow flex items-center justify-center p-4">
     <div class="w-full max-w-md bg-surface rounded-3xl p-8 shadow-level-1 my-8">
         <div class="text-center mb-8">
-            <h1 class="text-3xl font-extrabold text-primary tracking-tight">Daftar NexHelp</h1>
+            <h1 class="text-3xl font-extrabold text-primary tracking-tight">Daftar KawanKampus</h1>
             <p class="text-on-surface-variant mt-2">Mulai bantu teman dan dapatkan bantuan!</p>
         </div>
 

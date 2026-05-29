@@ -48,6 +48,6 @@ class ReviewController extends Controller
             'comment' => $validated['comment'],
         ]);
 
-        return redirect()->route('activity.index')->with('success', 'Mantap! Ulasan lu udah tersimpan. Makasih udah pakai NexHelp!');
+        return redirect()->route('activity.index')->with('success', 'Mantap! Ulasan lu udah tersimpan. Makasih udah pakai KawanKampus!');
     }
 }

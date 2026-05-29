@@ -7,7 +7,7 @@
     <a href="{{ route('profile') }}" class="flex items-center gap-2 sm:gap-3 hover:bg-surface-bright p-2 -ml-2 rounded-xl transition-colors">
         <img alt="User Profile" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover shadow-sm border border-surface-bright" src="{{ Auth::user()->avatar_url }}"/>
         <div>
-            <h1 class="font-headline-md text-xl sm:text-2xl text-primary font-extrabold tracking-tight">NexHelp</h1>
+            <h1 class="font-headline-md text-xl sm:text-2xl text-primary font-extrabold tracking-tight">KawanKampus</h1>
             <p class="font-label-sm text-[10px] sm:text-xs text-on-surface-variant line-clamp-1">{{ $user->name }}</p>
         </div>
     </a>

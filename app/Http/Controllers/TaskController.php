@@ -39,13 +39,13 @@ class TaskController extends Controller
         $user->save();
 
         $validated['requester_id'] = $user->id;
-        $validated['status'] = 'Open';
+        $validated['status'] = 'Pending Approval';
         // Simpan ke deadline juga buat sorting kalau perlu
         $validated['deadline'] = $validated['schedule_date'] . ' ' . $validated['end_time'] . ':00';
         
         Task::create($validated);
 
-        return redirect()->route('home')->with('success', 'Request jasa berhasil diposting!');
+        return redirect()->route('home')->with('success', 'Request jasa berhasil diposting dan sedang menunggu persetujuan Admin!');
     }
 
     public function cancel(Task $task)

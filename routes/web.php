@@ -51,4 +51,5 @@ Route::middleware(['auth'])->group(function () {
     // Admin Routes
     Route::get('/admin/dashboard', [\App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::post('/admin/task/{id}/delete', [\App\Http\Controllers\AdminController::class, 'destroyTask'])->name('admin.task.destroy');
+    Route::post('/admin/task/{id}/approve', [\App\Http\Controllers\AdminController::class, 'approveTask'])->name('admin.task.approve');
 });

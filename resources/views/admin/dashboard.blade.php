@@ -43,6 +43,63 @@
         </div>
     </div>
 
+    <!-- Pending Tasks List -->
+    <section>
+        <h2 class="text-lg font-bold text-on-surface mb-4 flex items-center gap-2">
+            <span class="material-symbols-outlined text-error">pending_actions</span>
+            Menunggu Persetujuan
+        </h2>
+        <div class="bg-surface rounded-2xl shadow-sm border border-surface-bright overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-surface-container-low text-on-surface-variant text-xs uppercase tracking-wider border-b border-surface-bright">
+                            <th class="p-4 font-bold">Judul</th>
+                            <th class="p-4 font-bold">Pembuat</th>
+                            <th class="p-4 font-bold">Kategori</th>
+                            <th class="p-4 font-bold text-right">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        @forelse($pendingTasks as $pt)
+                        <tr class="border-b border-surface-bright last:border-0 hover:bg-surface-container-low transition-colors">
+                            <td class="p-4 text-on-surface font-semibold">
+                                <a href="{{ route('task.show', $pt->id) }}" class="hover:underline text-primary">{{ $pt->title }}</a>
+                            </td>
+                            <td class="p-4 text-on-surface-variant">
+                                {{ $pt->requester->name }}
+                            </td>
+                            <td class="p-4">
+                                <span class="bg-surface-container-high text-on-surface px-2 py-1 rounded text-xs">{{ $pt->category }}</span>
+                            </td>
+                            <td class="p-4 text-right flex justify-end gap-2">
+                                <form action="{{ route('admin.task.approve', $pt->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="inline-flex items-center gap-1 text-xs font-bold text-on-primary bg-primary px-3 py-1.5 rounded-lg hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+                                        <span class="material-symbols-outlined text-[14px]">check_circle</span> ACC
+                                    </button>
+                                </form>
+                                <button type="button" onclick="confirmDelete({{ $pt->id }})" class="inline-flex items-center gap-1 text-xs font-bold text-error bg-error-container px-3 py-1.5 rounded-lg hover:bg-error hover:text-white transition-colors shadow-sm">
+                                    <span class="material-symbols-outlined text-[14px]">cancel</span> Tolak
+                                </button>
+                                
+                                <form id="delete-form-{{ $pt->id }}" action="{{ route('admin.task.destroy', $pt->id) }}" method="POST" class="hidden">
+                                    @csrf
+                                    <input type="hidden" name="reason" id="delete-reason-{{ $pt->id }}">
+                                </form>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="4" class="p-8 text-center text-on-surface-variant">Tidak ada request yang menunggu persetujuan.</td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
     <!-- Tasks List -->
     <section>
         <h2 class="text-lg font-bold text-on-surface mb-4">Semua Task</h2>

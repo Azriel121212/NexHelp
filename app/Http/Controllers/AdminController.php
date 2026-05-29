@@ -15,13 +15,14 @@ class AdminController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        $tasks = Task::with('requester')->latest()->get();
+        $tasks = Task::with('requester')->where('status', '!=', 'Pending Approval')->latest()->get();
+        $pendingTasks = Task::with('requester')->where('status', 'Pending Approval')->latest()->get();
         
         $totalUsers = User::count();
         $totalTasks = Task::count();
-        $activeTasks = Task::where('status', 'open')->count();
+        $activeTasks = Task::where('status', 'Open')->count();
 
-        return view('admin.dashboard', compact('tasks', 'totalUsers', 'totalTasks', 'activeTasks'));
+        return view('admin.dashboard', compact('tasks', 'pendingTasks', 'totalUsers', 'totalTasks', 'activeTasks'));
     }
 
     public function destroyTask(Request $request, $id)
@@ -37,7 +38,7 @@ class AdminController extends Controller
         $task = Task::findOrFail($id);
         
         // Return points to requester
-        if ($task->status == 'open' || $task->status == 'in_progress') {
+        if (in_array($task->status, ['Open', 'open', 'in_progress', 'Pending Approval'])) {
             $task->requester->points += $task->reward_points;
             $task->requester->save();
         }
@@ -48,5 +49,22 @@ class AdminController extends Controller
         $task->delete();
 
         return back()->with('success', 'Task berhasil dihapus karena: ' . $request->reason);
+    }
+
+    public function approveTask($id)
+    {
+        if (!Auth::user()->is_admin) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $task = Task::findOrFail($id);
+        
+        if ($task->status === 'Pending Approval') {
+            $task->status = 'Open';
+            $task->save();
+            return back()->with('success', 'Task berhasil disetujui dan sekarang tayang di Beranda!');
+        }
+
+        return back()->with('error', 'Task ini tidak dalam status menunggu persetujuan.');
     }
 }

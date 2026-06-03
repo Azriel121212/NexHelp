@@ -13,7 +13,10 @@ class HomeController extends Controller
     {
         $user = Auth::user();
 
-        $query = Task::with('requester')->where('status', 'Open');
+        // Hanya tampilkan task yang statusnya Open dan deadline-nya belum lewat
+        $query = Task::with('requester')
+            ->where('status', 'Open')
+            ->where('deadline', '>=', now());
 
         if ($request->filled('search')) {
             $search = $request->input('search');

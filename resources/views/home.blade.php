@@ -93,10 +93,13 @@
     <!-- Task Feed Dynamic from Database -->
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-24">
         @forelse($tasks as $task)
-        <article class="bg-surface rounded-DEFAULT p-4 shadow-level-1 {{ $task->category == 'Urgent' ? 'border-l-4 border-error' : '' }} flex flex-col justify-between h-full">
+        <article class="relative bg-surface rounded-DEFAULT p-4 shadow-level-1 {{ $task->category == 'Urgent' ? 'border-l-4 border-error' : '' }} flex flex-col justify-between h-full transition-shadow hover:shadow-level-2">
+            <!-- Invisible Link Over Entire Card -->
+            <a href="{{ route('task.show', $task->id) }}" class="absolute inset-0 z-0 rounded-DEFAULT"></a>
+            
             <div>
                 <!-- Pembuat Tugas -->
-            <div class="flex items-center gap-3 mb-3 border-b border-surface-bright pb-3">
+            <div class="relative z-10 flex items-center gap-3 mb-3 border-b border-surface-bright pb-3">
                 <img src="{{ $task->requester->avatar_url }}" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
                 <div>
                     <h4 class="text-xs font-bold text-on-surface">{{ $task->requester->name }}</h4>
@@ -104,7 +107,7 @@
                 </div>
             </div>
 
-            <div class="flex justify-between items-start mb-2">
+            <div class="relative z-10 flex justify-between items-start mb-2">
                 @if($task->category == 'Urgent')
                     <span class="bg-error-container text-on-error-container px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">{{ $task->category }}</span>
                 @elseif($task->category == 'Lost & Found')
@@ -114,11 +117,9 @@
                 @endif
                 <span class="text-outline text-[10px] font-bold">{{ \Carbon\Carbon::parse($task->created_at)->diffForHumans(null, true, true) }}</span>
             </div>
-            <a href="{{ route('task.show', $task->id) }}" class="hover:underline block">
-                <h3 class="text-lg font-bold text-on-surface mb-3">{{ $task->title }}</h3>
-            </a>
+                <h3 class="relative z-10 text-lg font-bold text-on-surface mb-3 pointer-events-none">{{ $task->title }}</h3>
             </div>
-            <div class="flex justify-between items-end mt-4">
+            <div class="relative z-10 flex justify-between items-end mt-4">
                 <div class="flex items-center text-on-surface-variant text-xs sm:text-sm gap-1">
                     <span class="material-symbols-outlined text-[16px]">location_on</span>
                     {{ $task->location }}
@@ -169,7 +170,7 @@
 </main>
 
 <!-- Floating Action Button untuk Bikin Request Baru -->
-<a href="{{ route('task.create') }}" class="fixed bottom-8 right-8 bg-primary text-on-primary w-14 h-14 rounded-full flex items-center justify-center shadow-level-2 hover:bg-primary-container hover:text-on-primary-container transition-colors z-50 group" title="Bikin Request Baru">
+<a href="{{ route('task.create') }}" class="fixed bottom-24 right-4 md:bottom-8 md:right-8 bg-primary text-on-primary w-14 h-14 rounded-full flex items-center justify-center shadow-level-2 hover:bg-primary-container hover:text-on-primary-container transition-colors z-50 group" title="Bikin Request Baru">
     <span class="material-symbols-outlined text-3xl group-hover:scale-110 transition-transform">add</span>
 </a>
 

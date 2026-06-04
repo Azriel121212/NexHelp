@@ -54,8 +54,8 @@ class TaskController extends Controller
             return back()->with('error', 'Ini bukan request lu der!');
         }
 
-        if (!in_array($task->status, ['Open', 'Pending Approval'])) {
-            return back()->with('error', 'Request ini udah jalan atau selesai, nggak bisa diedit lagi.');
+        if ($task->status !== 'Pending Approval') {
+            return back()->with('error', 'Request ini udah di-ACC Admin atau jalan, nggak bisa diedit lagi. Edit cuma bisa pas Menunggu Persetujuan.');
         }
 
         if ($task->applications()->exists()) {
@@ -67,8 +67,8 @@ class TaskController extends Controller
 
     public function update(Request $request, Task $task)
     {
-        if ($task->requester_id !== Auth::id() || !in_array($task->status, ['Open', 'Pending Approval']) || $task->applications()->exists()) {
-            return back()->with('error', 'Lu nggak berhak edit task ini.');
+        if ($task->requester_id !== Auth::id() || $task->status !== 'Pending Approval' || $task->applications()->exists()) {
+            return back()->with('error', 'Lu nggak berhak edit task ini, atau tasknya udah di-ACC.');
         }
 
         $validated = $request->validate([

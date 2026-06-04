@@ -63,7 +63,7 @@
         <section class="flex flex-col gap-4 mt-4">
             <div class="flex justify-between items-center">
                 <h3 class="text-lg font-bold text-on-surface">Kandidat Helper ({{ $task->applications->count() }})</h3>
-                @if(in_array($task->status, ['Open', 'Pending Approval']) && $task->applications->isEmpty())
+                @if($task->status === 'Pending Approval' && $task->applications->isEmpty())
                     <a href="{{ route('task.edit', $task->id) }}" class="inline-flex items-center gap-1 bg-surface-container-high text-on-surface-variant hover:bg-surface-container-low px-3 py-1.5 rounded-full text-xs font-bold transition-colors">
                         <span class="material-symbols-outlined text-[16px]">edit</span> Edit Jasa
                     </a>

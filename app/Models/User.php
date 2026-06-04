@@ -60,4 +60,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function tasksHelped()
+    {
+        return $this->hasMany(Task::class, 'helper_id');
+    }
 }

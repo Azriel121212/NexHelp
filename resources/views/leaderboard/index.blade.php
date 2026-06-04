@@ -27,7 +27,7 @@
             <div class="bg-[#F5F5F5] w-full h-24 rounded-t-lg flex flex-col items-center pt-2 shadow-inner border border-outline-variant relative">
                 <span class="text-[#C0C0C0] font-bold text-xl">2</span>
                 <p class="text-[10px] font-bold text-on-surface truncate w-full text-center px-1">{{ $topUsers[1]->name }}</p>
-                <p class="text-[9px] text-[#FFB400] font-bold">{{ $topUsers[1]->points }} pts</p>
+                <p class="text-[9px] text-[#FFB400] font-bold">{{ $topUsers[1]->tasks_helped_count }} Tugas Selesai</p>
             </div>
         </div>
         @endif
@@ -40,7 +40,7 @@
             <div class="bg-[#FFF8E7] w-full h-32 rounded-t-lg flex flex-col items-center pt-2 shadow-inner border border-[#FFE082] relative">
                 <span class="text-[#FFB400] font-bold text-2xl">1</span>
                 <p class="text-xs font-bold text-on-surface truncate w-full text-center px-1">{{ $topUsers[0]->name }}</p>
-                <p class="text-[10px] text-[#FFB400] font-bold">{{ $topUsers[0]->points }} pts</p>
+                <p class="text-[10px] text-[#FFB400] font-bold">{{ $topUsers[0]->tasks_helped_count }} Tugas Selesai</p>
             </div>
         </div>
         @endif
@@ -52,7 +52,7 @@
             <div class="bg-[#FAF0E6] w-full h-20 rounded-t-lg flex flex-col items-center pt-2 shadow-inner border border-[#E6C287] relative">
                 <span class="text-[#CD7F32] font-bold text-xl">3</span>
                 <p class="text-[10px] font-bold text-on-surface truncate w-full text-center px-1">{{ $topUsers[2]->name }}</p>
-                <p class="text-[9px] text-[#FFB400] font-bold">{{ $topUsers[2]->points }} pts</p>
+                <p class="text-[9px] text-[#FFB400] font-bold">{{ $topUsers[2]->tasks_helped_count }} Tugas Selesai</p>
             </div>
         </div>
         @endif
@@ -72,8 +72,8 @@
             </div>
             <div class="text-right">
                 <span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
-                    <span class="material-symbols-outlined text-[14px]">monetization_on</span>
-                    {{ $user->points }} pts
+                    <span class="material-symbols-outlined text-[14px]">task_alt</span>
+                    {{ $user->tasks_helped_count }} Tugas
                 </span>
             </div>
         </div>

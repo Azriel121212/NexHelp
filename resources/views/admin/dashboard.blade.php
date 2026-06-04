@@ -3,84 +3,97 @@
 
 @section('content')
 <!-- TopAppBar -->
-<header class="bg-surface text-primary shadow-sm flex items-center px-4 py-3 w-full sticky top-0 z-50">
-    <a href="{{ route('home') }}" class="flex items-center gap-2 hover:bg-surface-bright p-2 -ml-2 rounded-xl transition-colors">
-        <span class="material-symbols-outlined text-on-surface-variant">arrow_back</span>
-        <h1 class="font-headline-md text-xl sm:text-2xl text-error font-extrabold tracking-tight">Admin Panel</h1>
+<header class="bg-surface/80 backdrop-blur-md text-primary shadow-sm flex items-center px-4 py-3 w-full sticky top-0 z-50 border-b border-surface-bright">
+    <a href="{{ route('home') }}" class="flex items-center gap-2 hover:bg-surface-bright p-2 -ml-2 rounded-xl transition-all duration-300 hover:scale-105 group">
+        <div class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high group-hover:bg-primary/10 transition-colors">
+            <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">arrow_back</span>
+        </div>
+        <div>
+            <h1 class="font-headline-md text-xl sm:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-error to-[#ff6b6b] text-transparent bg-clip-text">Admin Panel</h1>
+            <p class="text-[10px] sm:text-xs text-on-surface-variant font-bold uppercase tracking-wider">Control Center</p>
+        </div>
     </a>
 </header>
 
-<main class="px-4 py-6 max-w-7xl mx-auto space-y-6 w-full">
+<main class="px-4 py-8 max-w-7xl mx-auto space-y-8 w-full">
     
     <!-- Stats -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div class="bg-surface rounded-2xl p-5 shadow-sm border border-surface-bright flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex justify-center items-center">
-                <span class="material-symbols-outlined">group</span>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div class="bg-gradient-to-br from-primary/10 to-primary-container/20 rounded-3xl p-6 shadow-sm border border-primary/20 flex items-center gap-5 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+            <div class="w-14 h-14 rounded-2xl bg-primary text-white flex justify-center items-center shadow-inner">
+                <span class="material-symbols-outlined text-2xl">group</span>
             </div>
             <div>
-                <p class="text-on-surface-variant text-xs font-bold uppercase">Total Users</p>
-                <h3 class="text-2xl font-bold text-on-surface">{{ $totalUsers }}</h3>
+                <p class="text-primary text-xs font-bold uppercase tracking-wider mb-1">Total Users</p>
+                <h3 class="text-3xl font-extrabold text-on-surface">{{ $totalUsers }}</h3>
             </div>
         </div>
-        <div class="bg-surface rounded-2xl p-5 shadow-sm border border-surface-bright flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-secondary-fixed text-on-secondary-fixed flex justify-center items-center">
-                <span class="material-symbols-outlined">task</span>
+        
+        <div class="bg-gradient-to-br from-[#FFB400]/10 to-[#FFB400]/20 rounded-3xl p-6 shadow-sm border border-[#FFB400]/20 flex items-center gap-5 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+            <div class="w-14 h-14 rounded-2xl bg-[#FFB400] text-[#4A3400] flex justify-center items-center shadow-inner">
+                <span class="material-symbols-outlined text-2xl">task</span>
             </div>
             <div>
-                <p class="text-on-surface-variant text-xs font-bold uppercase">Total Tasks</p>
-                <h3 class="text-2xl font-bold text-on-surface">{{ $totalTasks }}</h3>
+                <p class="text-[#4A3400] text-xs font-bold uppercase tracking-wider mb-1">Total Tasks</p>
+                <h3 class="text-3xl font-extrabold text-on-surface">{{ $totalTasks }}</h3>
             </div>
         </div>
-        <div class="bg-surface rounded-2xl p-5 shadow-sm border border-surface-bright flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-error-container text-on-error-container flex justify-center items-center">
-                <span class="material-symbols-outlined">pending_actions</span>
+        
+        <div class="bg-gradient-to-br from-error/10 to-error-container/30 rounded-3xl p-6 shadow-sm border border-error/20 flex items-center gap-5 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+            <div class="w-14 h-14 rounded-2xl bg-error text-white flex justify-center items-center shadow-inner">
+                <span class="material-symbols-outlined text-2xl">pending_actions</span>
             </div>
             <div>
-                <p class="text-on-surface-variant text-xs font-bold uppercase">Active Tasks</p>
-                <h3 class="text-2xl font-bold text-on-surface">{{ $activeTasks }}</h3>
+                <p class="text-error text-xs font-bold uppercase tracking-wider mb-1">Active Tasks</p>
+                <h3 class="text-3xl font-extrabold text-on-surface">{{ $activeTasks }}</h3>
             </div>
         </div>
     </div>
 
     <!-- Pending Tasks List -->
-    <section>
-        <h2 class="text-lg font-bold text-on-surface mb-4 flex items-center gap-2">
-            <span class="material-symbols-outlined text-error">pending_actions</span>
+    <section class="animate-fade-in-up">
+        <h2 class="text-xl font-extrabold text-on-surface mb-5 flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-error/10 flex items-center justify-center text-error">
+                <span class="material-symbols-outlined text-[18px]">pending_actions</span>
+            </div>
             Menunggu Persetujuan
         </h2>
-        <div class="bg-surface rounded-2xl shadow-sm border border-surface-bright overflow-hidden">
+        <div class="bg-surface rounded-3xl shadow-sm border border-surface-bright overflow-hidden hover:shadow-md transition-shadow duration-300">
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="bg-surface-container-low text-on-surface-variant text-xs uppercase tracking-wider border-b border-surface-bright">
-                            <th class="p-4 font-bold">Judul</th>
-                            <th class="p-4 font-bold">Pembuat</th>
-                            <th class="p-4 font-bold">Kategori</th>
-                            <th class="p-4 font-bold text-right">Aksi</th>
+                        <tr class="bg-surface-container-low/50 text-on-surface-variant text-xs uppercase tracking-wider border-b border-surface-bright">
+                            <th class="p-5 font-bold">Judul</th>
+                            <th class="p-5 font-bold">Pembuat</th>
+                            <th class="p-5 font-bold">Kategori</th>
+                            <th class="p-5 font-bold text-right">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="text-sm" id="pending-tasks-tbody">
                         @forelse($pendingTasks as $pt)
-                        <tr class="border-b border-surface-bright last:border-0 hover:bg-surface-container-low transition-colors">
-                            <td class="p-4 text-on-surface font-semibold">
-                                <a href="{{ route('task.show', $pt->id) }}" class="hover:underline text-primary">{{ $pt->title }}</a>
+                        <tr class="border-b border-surface-bright last:border-0 hover:bg-surface-container-low transition-colors group">
+                            <td class="p-5 text-on-surface font-semibold">
+                                <a href="{{ route('task.show', $pt->id) }}" class="hover:text-primary transition-colors flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px] text-primary/70">assignment</span>
+                                    {{ $pt->title }}
+                                </a>
                             </td>
-                            <td class="p-4 text-on-surface-variant">
+                            <td class="p-5 text-on-surface-variant flex items-center gap-2">
+                                <img src="{{ $pt->requester->avatar_url ?? 'https://ui-avatars.com/api/?name='.urlencode($pt->requester->name).'&color=FFFFFF&background=0040df' }}" class="w-6 h-6 rounded-full" alt="avatar">
                                 {{ $pt->requester->name }}
                             </td>
-                            <td class="p-4">
-                                <span class="bg-surface-container-high text-on-surface px-2 py-1 rounded text-xs">{{ $pt->category }}</span>
+                            <td class="p-5">
+                                <span class="bg-surface-container-high text-on-surface px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide">{{ $pt->category }}</span>
                             </td>
-                            <td class="p-4 text-right flex justify-end gap-2">
+                            <td class="p-5 text-right flex justify-end gap-2 opacity-80 group-hover:opacity-100 transition-opacity">
                                 <form action="{{ route('admin.task.approve', $pt->id) }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="inline-flex items-center gap-1 text-xs font-bold text-on-primary bg-primary px-3 py-1.5 rounded-lg hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
-                                        <span class="material-symbols-outlined text-[14px]">check_circle</span> ACC
+                                    <button type="submit" class="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-gradient-to-r from-primary to-primary-container px-4 py-2 rounded-xl hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                                        <span class="material-symbols-outlined text-[16px]">check_circle</span> ACC
                                     </button>
                                 </form>
-                                <button type="button" onclick="confirmDelete({{ $pt->id }})" class="inline-flex items-center gap-1 text-xs font-bold text-error bg-error-container px-3 py-1.5 rounded-lg hover:bg-error hover:text-white transition-colors shadow-sm">
-                                    <span class="material-symbols-outlined text-[14px]">cancel</span> Tolak
+                                <button type="button" onclick="confirmDelete({{ $pt->id }})" class="inline-flex items-center gap-1.5 text-xs font-bold text-error bg-error/10 px-4 py-2 rounded-xl hover:bg-error hover:text-white transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
+                                    <span class="material-symbols-outlined text-[16px]">cancel</span> Tolak
                                 </button>
                                 
                                 <form id="delete-form-{{ $pt->id }}" action="{{ route('admin.task.destroy', $pt->id) }}" method="POST" class="hidden">
@@ -91,7 +104,12 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="4" class="p-8 text-center text-on-surface-variant">Tidak ada request yang menunggu persetujuan.</td>
+                            <td colspan="4" class="p-10 text-center">
+                                <div class="flex flex-col items-center justify-center text-on-surface-variant">
+                                    <span class="material-symbols-outlined text-4xl mb-2 opacity-50">done_all</span>
+                                    <p class="font-bold">Tidak ada request yang menunggu persetujuan.</p>
+                                </div>
+                            </td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -101,45 +119,54 @@
     </section>
 
     <!-- Tasks List -->
-    <section>
-        <h2 class="text-lg font-bold text-on-surface mb-4">Semua Task</h2>
-        <div class="bg-surface rounded-2xl shadow-sm border border-surface-bright overflow-hidden">
+    <section class="animate-fade-in-up" style="animation-delay: 100ms;">
+        <h2 class="text-xl font-extrabold text-on-surface mb-5 flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                <span class="material-symbols-outlined text-[18px]">list_alt</span>
+            </div>
+            Semua Task
+        </h2>
+        <div class="bg-surface rounded-3xl shadow-sm border border-surface-bright overflow-hidden hover:shadow-md transition-shadow duration-300">
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="bg-surface-container-low text-on-surface-variant text-xs uppercase tracking-wider border-b border-surface-bright">
-                            <th class="p-4 font-bold">Judul</th>
-                            <th class="p-4 font-bold">Pembuat</th>
-                            <th class="p-4 font-bold">Kategori</th>
-                            <th class="p-4 font-bold">Status</th>
-                            <th class="p-4 font-bold text-right">Aksi</th>
+                        <tr class="bg-surface-container-low/50 text-on-surface-variant text-xs uppercase tracking-wider border-b border-surface-bright">
+                            <th class="p-5 font-bold">Judul</th>
+                            <th class="p-5 font-bold">Pembuat</th>
+                            <th class="p-5 font-bold">Kategori</th>
+                            <th class="p-5 font-bold">Status</th>
+                            <th class="p-5 font-bold text-right">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="text-sm">
                         @forelse($tasks as $task)
-                        <tr class="border-b border-surface-bright last:border-0 hover:bg-surface-container-low transition-colors">
-                            <td class="p-4 text-on-surface font-semibold">
-                                <a href="{{ route('task.show', $task->id) }}" class="hover:underline text-primary">{{ $task->title }}</a>
+                        <tr class="border-b border-surface-bright last:border-0 hover:bg-surface-container-low transition-colors group">
+                            <td class="p-5 text-on-surface font-semibold">
+                                <a href="{{ route('task.show', $task->id) }}" class="hover:text-primary transition-colors flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px] text-primary/70">assignment</span>
+                                    {{ $task->title }}
+                                </a>
                             </td>
-                            <td class="p-4 text-on-surface-variant">
+                            <td class="p-5 text-on-surface-variant flex items-center gap-2">
+                                <img src="{{ $task->requester->avatar_url ?? 'https://ui-avatars.com/api/?name='.urlencode($task->requester->name).'&color=FFFFFF&background=0040df' }}" class="w-6 h-6 rounded-full" alt="avatar">
                                 {{ $task->requester->name }}
                             </td>
-                            <td class="p-4">
-                                <span class="bg-surface-container-high text-on-surface px-2 py-1 rounded text-xs">{{ $task->category }}</span>
+                            <td class="p-5">
+                                <span class="bg-surface-container-high text-on-surface px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide">{{ $task->category }}</span>
                             </td>
-                            <td class="p-4">
-                                <span class="px-2 py-1 rounded text-xs font-bold 
-                                    {{ $task->status == 'open' ? 'bg-primary-fixed text-on-primary-fixed' : '' }}
-                                    {{ $task->status == 'in_progress' ? 'bg-secondary-fixed text-on-secondary-fixed' : '' }}
+                            <td class="p-5">
+                                <span class="px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide shadow-sm
+                                    {{ $task->status == 'open' ? 'bg-primary-container text-on-primary-container' : '' }}
+                                    {{ $task->status == 'in_progress' ? 'bg-[#FFB400]/20 text-[#4A3400]' : '' }}
                                     {{ $task->status == 'completed' ? 'bg-tertiary-container text-white' : '' }}
                                     {{ $task->status == 'cancelled' ? 'bg-error-container text-on-error-container' : '' }}
                                 ">
                                     {{ ucfirst($task->status) }}
                                 </span>
                             </td>
-                            <td class="p-4 text-right">
-                                <button type="button" onclick="confirmDelete({{ $task->id }})" class="inline-flex items-center gap-1 text-xs font-bold text-error bg-error-container px-3 py-1.5 rounded-lg hover:bg-error hover:text-white transition-colors">
-                                    <span class="material-symbols-outlined text-[14px]">delete</span> Hapus
+                            <td class="p-5 text-right opacity-80 group-hover:opacity-100 transition-opacity">
+                                <button type="button" onclick="confirmDelete({{ $task->id }})" class="inline-flex items-center gap-1.5 text-xs font-bold text-error bg-error/10 px-4 py-2 rounded-xl hover:bg-error hover:text-white transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
+                                    <span class="material-symbols-outlined text-[16px]">delete</span> Hapus
                                 </button>
                                 
                                 <form id="delete-form-{{ $task->id }}" action="{{ route('admin.task.destroy', $task->id) }}" method="POST" class="hidden">
@@ -150,7 +177,12 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5" class="p-8 text-center text-on-surface-variant">Belum ada task.</td>
+                            <td colspan="5" class="p-10 text-center">
+                                <div class="flex flex-col items-center justify-center text-on-surface-variant">
+                                    <span class="material-symbols-outlined text-4xl mb-2 opacity-50">inbox</span>
+                                    <p class="font-bold">Belum ada task di database.</p>
+                                </div>
+                            </td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -160,63 +192,74 @@
     </section>
 
     <!-- Reports List -->
-    <section class="mt-8">
-        <h2 class="text-lg font-bold text-on-surface mb-4 flex items-center gap-2">
-            <span class="material-symbols-outlined text-error">flag</span>
+    <section class="animate-fade-in-up" style="animation-delay: 200ms;">
+        <h2 class="text-xl font-extrabold text-on-surface mb-5 flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-[#FFB400]/10 flex items-center justify-center text-[#FFB400]">
+                <span class="material-symbols-outlined text-[18px]">flag</span>
+            </div>
             Laporan User (Report)
         </h2>
-        <div class="bg-surface rounded-2xl shadow-sm border border-surface-bright overflow-hidden">
+        <div class="bg-surface rounded-3xl shadow-sm border border-surface-bright overflow-hidden hover:shadow-md transition-shadow duration-300">
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="bg-surface-container-low text-on-surface-variant text-xs uppercase tracking-wider border-b border-surface-bright">
-                            <th class="p-4 font-bold">Pelapor</th>
-                            <th class="p-4 font-bold">Terlapor</th>
-                            <th class="p-4 font-bold">Alasan</th>
-                            <th class="p-4 font-bold">Status</th>
-                            <th class="p-4 font-bold text-right">Aksi</th>
+                        <tr class="bg-surface-container-low/50 text-on-surface-variant text-xs uppercase tracking-wider border-b border-surface-bright">
+                            <th class="p-5 font-bold">Pelapor</th>
+                            <th class="p-5 font-bold">Terlapor</th>
+                            <th class="p-5 font-bold">Alasan</th>
+                            <th class="p-5 font-bold">Status</th>
+                            <th class="p-5 font-bold text-right">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="text-sm">
                         @forelse($reports ?? [] as $report)
-                        <tr class="border-b border-surface-bright last:border-0 hover:bg-surface-container-low transition-colors">
-                            <td class="p-4 text-on-surface">
+                        <tr class="border-b border-surface-bright last:border-0 hover:bg-surface-container-low transition-colors group">
+                            <td class="p-5 text-on-surface flex items-center gap-2 font-medium">
+                                <img src="{{ $report->reporter->avatar_url ?? 'https://ui-avatars.com/api/?name='.urlencode($report->reporter->name).'&color=FFFFFF&background=0040df' }}" class="w-6 h-6 rounded-full" alt="avatar">
                                 {{ $report->reporter->name }}
                             </td>
-                            <td class="p-4 text-error font-bold">
+                            <td class="p-5 text-error font-bold flex items-center gap-2">
+                                <img src="{{ $report->reported->avatar_url ?? 'https://ui-avatars.com/api/?name='.urlencode($report->reported->name).'&color=FFFFFF&background=ba1a1a' }}" class="w-6 h-6 rounded-full" alt="avatar">
                                 {{ $report->reported->name }}
                                 @if($report->reported->is_banned)
-                                    <span class="ml-1 text-[10px] bg-error text-white px-2 py-0.5 rounded-full">BANNED</span>
+                                    <span class="ml-1 text-[10px] bg-error text-white px-2 py-0.5 rounded-full shadow-sm">BANNED</span>
                                 @endif
                             </td>
-                            <td class="p-4 text-on-surface-variant max-w-xs truncate" title="{{ $report->reason }}">
-                                {{ $report->reason }}
+                            <td class="p-5 text-on-surface-variant max-w-xs">
+                                <div class="truncate bg-surface-container-low px-3 py-1.5 rounded-lg border border-surface-bright" title="{{ $report->reason }}">
+                                    {{ $report->reason }}
+                                </div>
                             </td>
-                            <td class="p-4">
-                                <span class="px-2 py-1 rounded text-xs font-bold 
-                                    {{ $report->status == 'Pending' ? 'bg-surface-container-high text-on-surface-variant' : '' }}
-                                    {{ $report->status == 'Action Taken' ? 'bg-primary text-white' : '' }}
+                            <td class="p-5">
+                                <span class="px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide shadow-sm
+                                    {{ $report->status == 'Pending' ? 'bg-[#FFB400]/20 text-[#4A3400]' : '' }}
+                                    {{ $report->status == 'Action Taken' ? 'bg-error text-white' : '' }}
                                 ">
                                     {{ $report->status }}
                                 </span>
                             </td>
-                            <td class="p-4 text-right">
+                            <td class="p-5 text-right opacity-80 group-hover:opacity-100 transition-opacity">
                                 @if(!$report->reported->is_banned)
                                 <form action="{{ route('admin.user.ban', $report->reported_id) }}" method="POST" class="inline">
                                     @csrf
                                     <input type="hidden" name="report_id" value="{{ $report->id }}">
-                                    <button type="submit" onclick="return confirm('Yakin mau nge-BANNED {{ $report->reported->name }}? Dia nggak bakal bisa login lagi.')" class="inline-flex items-center gap-1 text-xs font-bold text-white bg-error px-3 py-1.5 rounded-lg hover:bg-error-container hover:text-error transition-colors">
-                                        <span class="material-symbols-outlined text-[14px]">block</span> Banned User
+                                    <button type="submit" onclick="return confirm('Yakin mau nge-BANNED {{ $report->reported->name }}? Dia nggak bakal bisa login lagi.')" class="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-gradient-to-r from-error to-[#ff6b6b] px-4 py-2 rounded-xl hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                                        <span class="material-symbols-outlined text-[16px]">block</span> Banned User
                                     </button>
                                 </form>
                                 @else
-                                <span class="text-xs text-on-surface-variant italic">Sudah Ditindak</span>
+                                <span class="text-xs font-bold text-on-surface-variant bg-surface-container px-3 py-1.5 rounded-lg border border-surface-bright italic">Sudah Ditindak</span>
                                 @endif
                             </td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5" class="p-8 text-center text-on-surface-variant">Belum ada laporan. Aman terkendali!</td>
+                            <td colspan="5" class="p-10 text-center">
+                                <div class="flex flex-col items-center justify-center text-on-surface-variant">
+                                    <span class="material-symbols-outlined text-4xl mb-2 text-[#FFB400]/50">verified_user</span>
+                                    <p class="font-bold">Belum ada laporan. Aman terkendali!</p>
+                                </div>
+                            </td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -225,6 +268,17 @@
         </div>
     </section>
 </main>
+
+<style>
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-up {
+        animation: fadeInUp 0.5s ease-out forwards;
+        opacity: 0;
+    }
+</style>
 
 <script>
     function confirmDelete(taskId) {

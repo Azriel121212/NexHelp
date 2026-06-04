@@ -52,9 +52,9 @@
                 <h3 class="text-base font-bold text-on-surface mb-2">{{ $task->title }}</h3>
                 <p class="text-sm text-on-surface-variant mb-4 line-clamp-2">{{ $task->description }}</p>
                 
-                @if($task->status == 'Rejected')
+                @if(in_array($task->status, ['Rejected', 'cancelled']) && $task->reject_reason)
                 <div class="bg-error-container text-on-error-container p-3 rounded-lg mb-4 text-sm border border-error">
-                    <strong>Alasan Ditolak:</strong> {{ $task->reject_reason }}
+                    <strong>{{ $task->status == 'cancelled' ? 'Alasan Dibatalkan:' : 'Alasan Ditolak:' }}</strong> {{ $task->reject_reason }}
                 </div>
                 @endif
                 

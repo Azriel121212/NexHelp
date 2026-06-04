@@ -237,16 +237,16 @@ class TaskController extends Controller
         return redirect()->route('review.create', $task->id)->with('success', 'Mantap! Tugas berhasil diverifikasi dan poin udah ditransfer ke helper. Jangan lupa kasih rating ya!');
     }
 
-    public function cancelProgress(Task $task)
+    public function cancelTask(Task $task)
     {
         $user = Auth::user();
 
-        // Hanya requester yang bisa membatalkan saat in progress/pending
+        // Hanya requester yang bisa membatalkan
         if ($task->requester_id !== $user->id) {
             return back()->with('error', 'Hanya pembuat request yang bisa membatalkan!');
         }
 
-        if (!in_array($task->status, ['In Progress', 'Pending Verification'])) {
+        if (in_array($task->status, ['Completed', 'Cancelled', 'Rejected'])) {
             return back()->with('error', 'Tugas tidak bisa dibatalkan pada status ini.');
         }
 
@@ -257,6 +257,6 @@ class TaskController extends Controller
         $user->points += $task->reward_points;
         $user->save();
 
-        return back()->with('success', 'Tugas dibatalkan (Helper gagal). Poin lu udah dikembalikan 100%.');
+        return back()->with('success', 'Tugas dibatalkan. Poin lu udah dikembalikan 100%.');
     }
 }

@@ -26,7 +26,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/task/{task}', [TaskController::class, 'update'])->name('task.update');
     Route::post('/task/{task}/complete', [TaskController::class, 'complete'])->name('task.complete');
     Route::post('/task/{task}/verify', [TaskController::class, 'verify'])->name('task.verify');
-    Route::post('/task/{task}/cancel-progress', [TaskController::class, 'cancelProgress'])->name('task.cancel_progress');
+    Route::post('/task/{task}/cancel', [TaskController::class, 'cancelTask'])->name('task.cancel');
     
     // Leaderboard Route
     Route::get('/leaderboard', [\App\Http\Controllers\LeaderboardController::class, 'index'])->name('leaderboard.index');

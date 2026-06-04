@@ -93,11 +93,11 @@
                 @endif
 
                 <div class="flex justify-end gap-2">
-                    @if($task->status == 'In Progress' || $task->status == 'Pending Verification')
-                        <form action="{{ route('task.cancel_progress', $task->id) }}" method="POST">
+                    @if(in_array($task->status, ['Open', 'Pending Approval', 'In Progress', 'Pending Verification']))
+                        <form action="{{ route('task.cancel', $task->id) }}" method="POST">
                             @csrf
-                            <button type="submit" class="text-xs font-bold text-error bg-error-container px-4 py-2 rounded-lg hover:bg-error hover:text-white transition-colors" onclick="return confirm('Yakin batalin? Poin lu balik 100%, tapi Helper mungkin marah.')">
-                                Batalin (Gagal)
+                            <button type="submit" class="text-xs font-bold text-error bg-error-container px-4 py-2 rounded-lg hover:bg-error hover:text-white transition-colors" onclick="return confirm('Yakin batalin? Poin lu balik 100%.')">
+                                Batalin
                             </button>
                         </form>
                     @endif

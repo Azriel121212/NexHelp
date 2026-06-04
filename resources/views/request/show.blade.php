@@ -61,13 +61,23 @@
     @if($task->requester_id === $user->id)
         <!-- Bagian khusus pembuat tugas: Daftar Pelamar -->
         <section class="flex flex-col gap-4 mt-4">
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center flex-wrap gap-2">
                 <h3 class="text-lg font-bold text-on-surface">Kandidat Helper ({{ $task->applications->count() }})</h3>
-                @if($task->status === 'Pending Approval' && $task->applications->isEmpty())
-                    <a href="{{ route('task.edit', $task->id) }}" class="inline-flex items-center gap-1 bg-surface-container-high text-on-surface-variant hover:bg-surface-container-low px-3 py-1.5 rounded-full text-xs font-bold transition-colors">
-                        <span class="material-symbols-outlined text-[16px]">edit</span> Edit Jasa
-                    </a>
-                @endif
+                <div class="flex gap-2">
+                    @if($task->status === 'Pending Approval' && $task->applications->isEmpty())
+                        <a href="{{ route('task.edit', $task->id) }}" class="inline-flex items-center gap-1 bg-surface-container-high text-on-surface-variant hover:bg-surface-container-low px-3 py-1.5 rounded-full text-xs font-bold transition-colors">
+                            <span class="material-symbols-outlined text-[16px]">edit</span> Edit Jasa
+                        </a>
+                    @endif
+                    @if(in_array($task->status, ['Open', 'Pending Approval', 'In Progress', 'Pending Verification']))
+                        <form action="{{ route('task.cancel', $task->id) }}" method="POST" class="inline">
+                            @csrf
+                            <button type="submit" class="inline-flex items-center gap-1 bg-error-container text-error hover:bg-error hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-colors" onclick="return confirm('Yakin batalin tugas ini? Poin lu bakal balik 100%.')">
+                                <span class="material-symbols-outlined text-[16px]">cancel</span> Batalin Jasa
+                            </button>
+                        </form>
+                    @endif
+                </div>
             </div>
             
             @if($task->applications->isEmpty())

@@ -42,6 +42,8 @@
                         <span class="text-xs font-bold text-error bg-error-container px-2 py-1 rounded-md animate-pulse">Menunggu Verifikasi</span>
                     @elseif($task->status == 'Completed')
                         <span class="text-xs font-bold text-success bg-success-container px-2 py-1 rounded-md">Selesai</span>
+                    @elseif($task->status == 'Rejected')
+                        <span class="text-xs font-bold text-error bg-error-container px-2 py-1 rounded-md">Ditolak</span>
                     @else
                         <span class="text-xs font-bold text-outline bg-surface-bright px-2 py-1 rounded-md">{{ $task->status }}</span>
                     @endif
@@ -49,6 +51,12 @@
                 
                 <h3 class="text-base font-bold text-on-surface mb-2">{{ $task->title }}</h3>
                 <p class="text-sm text-on-surface-variant mb-4 line-clamp-2">{{ $task->description }}</p>
+                
+                @if($task->status == 'Rejected')
+                <div class="bg-error-container text-on-error-container p-3 rounded-lg mb-4 text-sm border border-error">
+                    <strong>Alasan Ditolak:</strong> {{ $task->reject_reason }}
+                </div>
+                @endif
                 
                 @php
                     $startDateTime = \Carbon\Carbon::parse($task->schedule_date . ' ' . $task->start_time);

@@ -19,7 +19,7 @@
 </header>
 
 <main class="px-4 py-4 max-w-2xl mx-auto w-full flex-1 overflow-y-auto" id="chat-container">
-    <div class="space-y-3 pb-24">
+    <div class="space-y-3 pb-24" id="chat-messages-box">
         @forelse($messages as $msg)
             @if($msg->sender_id === $user->id)
                 <!-- My Message (Right) -->
@@ -60,25 +60,64 @@
 </div>
 
 <script>
-    document.getElementById('chat-form').addEventListener('submit', function(e) {
-        const btn = document.getElementById('chat-submit-btn');
-        const icon = document.getElementById('chat-submit-icon');
-        const msg = document.getElementById('chat-message').value.trim();
+    const chatForm = document.getElementById('chat-form');
+    const chatMsgInput = document.getElementById('chat-message');
+    const chatBox = document.getElementById('chat-messages-box');
+    const btn = document.getElementById('chat-submit-btn');
+    const icon = document.getElementById('chat-submit-icon');
+
+    // Handle Form Submit via AJAX
+    chatForm.addEventListener('submit', function(e) {
+        e.preventDefault();
         
-        if(msg === '') {
-            e.preventDefault();
-            return;
-        }
+        const msg = chatMsgInput.value.trim();
+        if(msg === '') return;
 
         // Disable button to prevent spam
         btn.disabled = true;
         icon.innerText = 'hourglass_empty';
         icon.classList.add('animate-pulse');
-    });
-</script>
 
-<script>
-    // Auto-scroll to bottom of chat
+        fetch(chatForm.action, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: JSON.stringify({ message: msg })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                chatMsgInput.value = '';
+                chatMsgInput.style.height = '';
+                fetchMessages(); // Immediately fetch new messages
+            }
+        })
+        .finally(() => {
+            btn.disabled = false;
+            icon.innerText = 'send';
+            icon.classList.remove('animate-pulse');
+        });
+    });
+
+    function fetchMessages() {
+        fetch('{{ route("chat.messages", $task->id) }}')
+            .then(res => res.json())
+            .then(data => {
+                if (data.html !== undefined) {
+                    chatBox.innerHTML = data.html;
+                    window.scrollTo(0, document.body.scrollHeight);
+                }
+            })
+            .catch(err => console.error(err));
+    }
+
+    // Polling every 3 seconds
+    setInterval(fetchMessages, 3000);
+
+    // Auto-scroll to bottom on load
     window.onload = function() {
         window.scrollTo(0, document.body.scrollHeight);
     };

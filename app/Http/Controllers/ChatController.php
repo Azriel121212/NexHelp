@@ -67,6 +67,43 @@ class ChatController extends Controller
             'message' => $request->message,
         ]);
 
+        if ($request->ajax()) {
+            return response()->json(['success' => true]);
+        }
+
         return back();
+    }
+
+    public function getMessages(Task $task)
+    {
+        $user = Auth::user();
+
+        if ($task->requester_id !== $user->id && $task->helper_id !== $user->id) {
+            return response()->json(['error' => 'Akses Ditolak.'], 403);
+        }
+
+        $messages = $task->messages()->with('sender')->oldest()->get();
+        
+        $html = '';
+        foreach ($messages as $msg) {
+            $isMe = $msg->sender_id === $user->id;
+            if ($isMe) {
+                $html .= '<div class="flex items-end justify-end gap-2">';
+                $html .= '<div class="max-w-[75%] bg-primary text-on-primary p-3 rounded-2xl rounded-tr-sm shadow-sm">';
+                $html .= '<p class="text-sm">' . e($msg->message) . '</p>';
+                $html .= '<span class="text-[10px] text-primary-container mt-1 block text-right opacity-80">' . $msg->created_at->format('H:i') . '</span>';
+                $html .= '</div></div>';
+            } else {
+                $html .= '<div class="flex items-end gap-2">';
+                $html .= '<img src="' . $msg->sender->avatar_url . '" alt="Avatar" class="w-8 h-8 rounded-full object-cover mb-1">';
+                $html .= '<div class="max-w-[75%] bg-surface-container text-on-surface p-3 rounded-2xl rounded-tl-sm shadow-sm border border-surface-bright">';
+                $html .= '<p class="text-xs font-bold text-on-surface-variant mb-1">' . e($msg->sender->name) . '</p>';
+                $html .= '<p class="text-sm">' . e($msg->message) . '</p>';
+                $html .= '<span class="text-[10px] text-on-surface-variant mt-1 block opacity-80">' . $msg->created_at->format('H:i') . '</span>';
+                $html .= '</div></div>';
+            }
+        }
+
+        return response()->json(['html' => $html]);
     }
 }

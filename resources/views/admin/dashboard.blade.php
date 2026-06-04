@@ -60,7 +60,7 @@
                             <th class="p-4 font-bold text-right">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody class="text-sm">
+                    <tbody class="text-sm" id="pending-tasks-tbody">
                         @forelse($pendingTasks as $pt)
                         <tr class="border-b border-surface-bright last:border-0 hover:bg-surface-container-low transition-colors">
                             <td class="p-4 text-on-surface font-semibold">
@@ -192,5 +192,42 @@
             }
         })
     }
+
+    function promptReject(form) {
+        Swal.fire({
+            title: 'Tolak Task Ini?',
+            text: "Berikan alasan kenapa ditolak (misal: spam, kurang detail):",
+            icon: 'warning',
+            input: 'text',
+            inputPlaceholder: 'Masukkan alasan...',
+            inputAttributes: { required: true },
+            showCancelButton: true,
+            confirmButtonColor: '#ba1a1a',
+            cancelButtonColor: '#747688',
+            confirmButtonText: 'Ya, Tolak!',
+            cancelButtonText: 'Batal',
+            preConfirm: (reason) => {
+                if (!reason) Swal.showValidationMessage('Alasan wajib diisi!');
+                return reason;
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.querySelector('.reject-reason-input').value = result.value;
+                form.submit();
+            }
+        })
+    }
+
+    // Polling Pending Tasks every 5 seconds
+    setInterval(() => {
+        fetch('{{ route("admin.tasks.pending_html") }}')
+            .then(res => res.json())
+            .then(data => {
+                if (data.html !== undefined) {
+                    document.getElementById('pending-tasks-tbody').innerHTML = data.html;
+                }
+            })
+            .catch(err => console.error(err));
+    }, 5000);
 </script>
 @endsection

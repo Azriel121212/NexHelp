@@ -37,6 +37,7 @@ Route::middleware(['auth'])->group(function () {
     // Chat Routes
     Route::get('/chat', [\App\Http\Controllers\ChatController::class, 'index'])->name('chat.index');
     Route::get('/chat/{task}', [\App\Http\Controllers\ChatController::class, 'show'])->name('chat.show');
+    Route::get('/chat/{task}/messages', [\App\Http\Controllers\ChatController::class, 'getMessages'])->name('chat.messages');
     Route::post('/chat/{task}', [\App\Http\Controllers\ChatController::class, 'store'])->name('chat.store');
 
     // Review Routes
@@ -55,6 +56,7 @@ Route::middleware(['auth'])->group(function () {
     
     // Admin Routes
     Route::get('/admin/dashboard', [\App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/tasks/pending-html', [\App\Http\Controllers\AdminController::class, 'getPendingTasksHtml'])->name('admin.tasks.pending_html');
     Route::post('/admin/task/{id}/delete', [\App\Http\Controllers\AdminController::class, 'destroyTask'])->name('admin.task.destroy');
     Route::post('/admin/task/{id}/approve', [\App\Http\Controllers\AdminController::class, 'approveTask'])->name('admin.task.approve');
 });

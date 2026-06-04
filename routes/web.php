@@ -40,6 +40,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/chat/{task}/messages', [\App\Http\Controllers\ChatController::class, 'getMessages'])->name('chat.messages');
     Route::post('/chat/{task}', [\App\Http\Controllers\ChatController::class, 'store'])->name('chat.store');
 
+    // Report User Route
+    Route::post('/report/{user}', [\App\Http\Controllers\ReportController::class, 'store'])->name('report.store');
+
     // Review Routes
     Route::get('/task/{task}/review', [\App\Http\Controllers\ReviewController::class, 'create'])->name('review.create');
     Route::post('/task/{task}/review', [\App\Http\Controllers\ReviewController::class, 'store'])->name('review.store');
@@ -58,5 +61,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', [\App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/tasks/pending-html', [\App\Http\Controllers\AdminController::class, 'getPendingTasksHtml'])->name('admin.tasks.pending_html');
     Route::post('/admin/task/{id}/delete', [\App\Http\Controllers\AdminController::class, 'destroyTask'])->name('admin.task.destroy');
+    Route::post('/admin/user/{id}/ban', [\App\Http\Controllers\AdminController::class, 'banUser'])->name('admin.user.ban');
     Route::post('/admin/task/{id}/approve', [\App\Http\Controllers\AdminController::class, 'approveTask'])->name('admin.task.approve');
 });

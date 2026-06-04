@@ -11,12 +11,62 @@
         <h1 class="font-headline-md text-base font-bold leading-tight">{{ $partner->name }}</h1>
         <p class="text-[10px] text-on-surface-variant line-clamp-1">Tugas: {{ $task->title }}</p>
     </div>
-    <div class="ml-auto">
+    <div class="ml-auto flex items-center gap-1">
         <button onclick="window.location.reload();" class="p-2 rounded-full hover:bg-surface-bright transition-colors text-primary" title="Refresh Chat">
             <span class="material-symbols-outlined">refresh</span>
         </button>
+        <button onclick="openReportModal()" class="p-2 rounded-full hover:bg-error-container transition-colors text-error" title="Laporkan User">
+            <span class="material-symbols-outlined">flag</span>
+        </button>
     </div>
 </header>
+
+<!-- Modal Laporkan -->
+<div id="reportModal" class="fixed inset-0 bg-black/50 z-[60] hidden items-center justify-center p-4 backdrop-blur-sm transition-opacity">
+    <div class="bg-surface w-full max-w-sm rounded-2xl p-6 shadow-level-3 transform scale-95 transition-transform" id="reportModalContent">
+        <div class="flex items-center gap-3 text-error mb-4">
+            <span class="material-symbols-outlined text-3xl">flag</span>
+            <h2 class="text-xl font-bold">Laporkan {{ $partner->name }}</h2>
+        </div>
+        <p class="text-sm text-on-surface-variant mb-4">Punya masalah sama user ini? Ceritain ke Admin biar bisa ditindak tegas (Banned).</p>
+        
+        <form action="{{ route('report.store', $partner->id) }}" method="POST">
+            @csrf
+            <div class="mb-4">
+                <label for="reason" class="block text-sm font-bold text-on-surface mb-2">Alasan Laporan</label>
+                <textarea name="reason" id="reason" rows="3" class="w-full bg-surface-container border border-outline-variant rounded-xl p-3 text-sm text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary" placeholder="Misal: User ini nipu, ngomong kasar, dll..." required></textarea>
+            </div>
+            <div class="flex gap-3 justify-end mt-6">
+                <button type="button" onclick="closeReportModal()" class="px-4 py-2 text-sm font-bold text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors">Batal</button>
+                <button type="submit" class="px-4 py-2 text-sm font-bold bg-error text-white hover:bg-error-container hover:text-error rounded-xl transition-colors shadow-sm">Kirim Laporan</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openReportModal() {
+        const modal = document.getElementById('reportModal');
+        const content = document.getElementById('reportModalContent');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        setTimeout(() => {
+            content.classList.remove('scale-95');
+            content.classList.add('scale-100');
+        }, 10);
+    }
+
+    function closeReportModal() {
+        const modal = document.getElementById('reportModal');
+        const content = document.getElementById('reportModalContent');
+        content.classList.remove('scale-100');
+        content.classList.add('scale-95');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }, 200);
+    }
+</script>
 
 <main class="px-4 py-4 max-w-2xl mx-auto w-full flex-1 overflow-y-auto" id="chat-container">
     <div class="space-y-3 pb-24" id="chat-messages-box">

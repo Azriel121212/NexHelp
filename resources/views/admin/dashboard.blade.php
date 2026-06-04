@@ -159,6 +159,71 @@
         </div>
     </section>
 
+    <!-- Reports List -->
+    <section class="mt-8">
+        <h2 class="text-lg font-bold text-on-surface mb-4 flex items-center gap-2">
+            <span class="material-symbols-outlined text-error">flag</span>
+            Laporan User (Report)
+        </h2>
+        <div class="bg-surface rounded-2xl shadow-sm border border-surface-bright overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-surface-container-low text-on-surface-variant text-xs uppercase tracking-wider border-b border-surface-bright">
+                            <th class="p-4 font-bold">Pelapor</th>
+                            <th class="p-4 font-bold">Terlapor</th>
+                            <th class="p-4 font-bold">Alasan</th>
+                            <th class="p-4 font-bold">Status</th>
+                            <th class="p-4 font-bold text-right">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        @forelse($reports ?? [] as $report)
+                        <tr class="border-b border-surface-bright last:border-0 hover:bg-surface-container-low transition-colors">
+                            <td class="p-4 text-on-surface">
+                                {{ $report->reporter->name }}
+                            </td>
+                            <td class="p-4 text-error font-bold">
+                                {{ $report->reported->name }}
+                                @if($report->reported->is_banned)
+                                    <span class="ml-1 text-[10px] bg-error text-white px-2 py-0.5 rounded-full">BANNED</span>
+                                @endif
+                            </td>
+                            <td class="p-4 text-on-surface-variant max-w-xs truncate" title="{{ $report->reason }}">
+                                {{ $report->reason }}
+                            </td>
+                            <td class="p-4">
+                                <span class="px-2 py-1 rounded text-xs font-bold 
+                                    {{ $report->status == 'Pending' ? 'bg-surface-container-high text-on-surface-variant' : '' }}
+                                    {{ $report->status == 'Action Taken' ? 'bg-primary text-white' : '' }}
+                                ">
+                                    {{ $report->status }}
+                                </span>
+                            </td>
+                            <td class="p-4 text-right">
+                                @if(!$report->reported->is_banned)
+                                <form action="{{ route('admin.user.ban', $report->reported_id) }}" method="POST" class="inline">
+                                    @csrf
+                                    <input type="hidden" name="report_id" value="{{ $report->id }}">
+                                    <button type="submit" onclick="return confirm('Yakin mau nge-BANNED {{ $report->reported->name }}? Dia nggak bakal bisa login lagi.')" class="inline-flex items-center gap-1 text-xs font-bold text-white bg-error px-3 py-1.5 rounded-lg hover:bg-error-container hover:text-error transition-colors">
+                                        <span class="material-symbols-outlined text-[14px]">block</span> Banned User
+                                    </button>
+                                </form>
+                                @else
+                                <span class="text-xs text-on-surface-variant italic">Sudah Ditindak</span>
+                                @endif
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="5" class="p-8 text-center text-on-surface-variant">Belum ada laporan. Aman terkendali!</td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
 </main>
 
 <script>

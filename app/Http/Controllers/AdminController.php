@@ -21,8 +21,10 @@ class AdminController extends Controller
 
         $pendingTasks = Task::with('requester')->where('status', 'Pending Approval')->latest()->get();
         $allTasks = Task::with('requester')->latest()->get();
+        
+        $reports = \App\Models\Report::with(['reporter', 'reported', 'task'])->latest()->get();
 
-        return view('admin.dashboard', compact('totalUsers', 'totalTasks', 'activeTasks', 'pendingTasks', 'allTasks'));
+        return view('admin.dashboard', compact('totalUsers', 'totalTasks', 'activeTasks', 'pendingTasks', 'allTasks', 'reports'));
     }
 
     public function getPendingTasksHtml()
@@ -96,5 +98,33 @@ class AdminController extends Controller
         }
 
         return back()->with('error', 'Task ini tidak dalam status menunggu persetujuan.');
+    }
+
+    public function banUser(Request $request, $id)
+    {
+        if (!Auth::user()->is_admin) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $user = User::findOrFail($id);
+        
+        // Cek kalau belum dibanned, ban dia
+        if (!$user->is_banned) {
+            $user->is_banned = true;
+            $user->save();
+
+            // Update status report jika dari halaman report
+            if ($request->has('report_id')) {
+                $report = \App\Models\Report::find($request->report_id);
+                if ($report) {
+                    $report->status = 'Action Taken';
+                    $report->save();
+                }
+            }
+
+            return back()->with('success', "User {$user->name} berhasil di-banned dari aplikasi!");
+        }
+
+        return back()->with('error', 'User sudah berstatus banned.');
     }
 }

@@ -19,7 +19,11 @@ class AdminController extends Controller
         $totalTasks = Task::count();
         $activeTasks = Task::whereIn('status', ['Open', 'In Progress'])->count();
 
+        // Run auto-cleanup
+        \App\Models\Task::cleanupExpiredPendingTasks();
+
         $pendingTasks = Task::with('requester')->where('status', 'Pending Approval')->latest()->get();
+
         $tasks = Task::with('requester')->latest()->take(50)->get(); // Limit to 50 latest tasks for performance
         
         try {

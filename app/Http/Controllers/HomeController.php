@@ -13,6 +13,9 @@ class HomeController extends Controller
     {
         $user = Auth::user();
 
+        // Run auto-cleanup for expired pending tasks
+        \App\Models\Task::cleanupExpiredPendingTasks();
+
         // Hanya tampilkan task yang statusnya Open dan deadline-nya belum lewat
         $query = Task::with('requester')
             ->where('status', 'Open')

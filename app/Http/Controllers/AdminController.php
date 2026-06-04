@@ -20,7 +20,8 @@ class AdminController extends Controller
         $activeTasks = Task::whereIn('status', ['Open', 'In Progress'])->count();
 
         $pendingTasks = Task::with('requester')->where('status', 'Pending Approval')->latest()->get();
-        $allTasks = Task::with('requester')->latest()->get();
+        $tasks = Task::with('requester')->latest()->get();
+        
         try {
             $reports = \App\Models\Report::with(['reporter', 'reported', 'task'])->latest()->get();
         } catch (\Exception $e) {
@@ -28,11 +29,7 @@ class AdminController extends Controller
             session()->now('error', 'Error in reports: ' . $e->getMessage());
         }
 
-        try {
-            return view('admin.dashboard', compact('totalUsers', 'totalTasks', 'activeTasks', 'pendingTasks', 'allTasks', 'reports'))->render();
-        } catch (\Exception $e) {
-            return "VIEW ERROR: " . $e->getMessage() . " in " . $e->getFile() . ":" . $e->getLine();
-        }
+        return view('admin.dashboard', compact('totalUsers', 'totalTasks', 'activeTasks', 'pendingTasks', 'tasks', 'reports'));
     }
 
     public function getPendingTasksHtml()

@@ -106,7 +106,7 @@
                             <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span> Beri Ulasan
                         </a>
                     @endif
-                    @if($task->status == 'Open')
+                    @if(in_array($task->status, ['Open', 'Pending Approval', 'In Progress', 'Pending Verification', 'Completed']))
                         <a href="{{ route('task.show', $task->id) }}" class="text-xs font-bold text-on-surface-variant bg-surface-container-high px-4 py-2 rounded-lg hover:bg-surface-container-low transition-colors shadow-sm">
                             Lihat Detail
                         </a>

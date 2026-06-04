@@ -115,12 +115,24 @@
                             </div>
                         </div>
                         
-                        <form action="{{ route('task.accept', ['task' => $task->id, 'application' => $app->id]) }}" method="POST" class="w-full sm:w-auto mt-2 sm:mt-0 flex-shrink-0">
-                            @csrf
-                            <button type="submit" class="w-full sm:w-auto bg-primary text-on-primary font-bold px-4 py-2 rounded-xl text-sm shadow-sm hover:bg-primary-container hover:text-on-primary-container transition-colors whitespace-nowrap" onclick="return confirm('Yakin mau milih {{ $app->user->name }} buat ngerjain tugas ini?')">
-                                Terima Bantuan Dia
-                            </button>
-                        </form>
+                        @php
+                            $startDateTime = \Carbon\Carbon::parse($task->schedule_date . ' ' . $task->start_time);
+                            $isExpired = now()->gt($startDateTime);
+                        @endphp
+                        
+                        @if(!$isExpired)
+                            <form action="{{ route('task.accept', ['task' => $task->id, 'application' => $app->id]) }}" method="POST" class="w-full sm:w-auto mt-2 sm:mt-0 flex-shrink-0">
+                                @csrf
+                                <button type="submit" class="w-full sm:w-auto bg-primary text-on-primary font-bold px-4 py-2 rounded-xl text-sm shadow-sm hover:bg-primary-container hover:text-on-primary-container transition-colors whitespace-nowrap" onclick="return confirm('Yakin mau milih {{ $app->user->name }} buat ngerjain tugas ini?')">
+                                    Terima Bantuan Dia
+                                </button>
+                            </form>
+                        @else
+                            <div class="w-full sm:w-auto mt-2 sm:mt-0 flex-shrink-0 text-center">
+                                <span class="text-xs text-error font-bold block">Jadwal udah lewat</span>
+                                <span class="text-[10px] text-outline">Nggak bisa terima helper</span>
+                            </div>
+                        @endif
                     </article>
                     @endforeach
                 </div>

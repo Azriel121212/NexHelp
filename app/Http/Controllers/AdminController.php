@@ -20,7 +20,7 @@ class AdminController extends Controller
         $activeTasks = Task::whereIn('status', ['Open', 'In Progress'])->count();
 
         $pendingTasks = Task::with('requester')->where('status', 'Pending Approval')->latest()->get();
-        $tasks = Task::with('requester')->latest()->get();
+        $tasks = Task::with('requester')->latest()->take(50)->get(); // Limit to 50 latest tasks for performance
         
         try {
             $reports = \App\Models\Report::with(['reporter', 'reported', 'task'])->latest()->get();

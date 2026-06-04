@@ -118,81 +118,8 @@
         </div>
     </section>
 
-    <!-- Tasks List -->
-    <section class="animate-fade-in-up" style="animation-delay: 100ms;">
-        <h2 class="text-xl font-extrabold text-on-surface mb-5 flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                <span class="material-symbols-outlined text-[18px]">list_alt</span>
-            </div>
-            Semua Task
-        </h2>
-        <div class="bg-surface rounded-3xl shadow-sm border border-surface-bright overflow-hidden hover:shadow-md transition-shadow duration-300">
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-surface-container-low/50 text-on-surface-variant text-xs uppercase tracking-wider border-b border-surface-bright">
-                            <th class="p-5 font-bold">Judul</th>
-                            <th class="p-5 font-bold">Pembuat</th>
-                            <th class="p-5 font-bold">Kategori</th>
-                            <th class="p-5 font-bold">Status</th>
-                            <th class="p-5 font-bold text-right">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-sm">
-                        @forelse($tasks as $task)
-                        <tr class="border-b border-surface-bright last:border-0 hover:bg-surface-container-low transition-colors group">
-                            <td class="p-5 text-on-surface font-semibold">
-                                <a href="{{ route('task.show', $task->id) }}" class="hover:text-primary transition-colors flex items-center gap-2">
-                                    <span class="material-symbols-outlined text-[18px] text-primary/70">assignment</span>
-                                    {{ $task->title }}
-                                </a>
-                            </td>
-                            <td class="p-5 text-on-surface-variant flex items-center gap-2">
-                                <img src="{{ $task->requester->avatar_url ?? 'https://ui-avatars.com/api/?name='.urlencode($task->requester->name).'&color=FFFFFF&background=0040df' }}" class="w-6 h-6 rounded-full" alt="avatar">
-                                {{ $task->requester->name }}
-                            </td>
-                            <td class="p-5">
-                                <span class="bg-surface-container-high text-on-surface px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide">{{ $task->category }}</span>
-                            </td>
-                            <td class="p-5">
-                                <span class="px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide shadow-sm
-                                    {{ $task->status == 'open' ? 'bg-primary-container text-on-primary-container' : '' }}
-                                    {{ $task->status == 'in_progress' ? 'bg-[#FFB400]/20 text-[#4A3400]' : '' }}
-                                    {{ $task->status == 'completed' ? 'bg-tertiary-container text-white' : '' }}
-                                    {{ $task->status == 'cancelled' ? 'bg-error-container text-on-error-container' : '' }}
-                                ">
-                                    {{ ucfirst($task->status) }}
-                                </span>
-                            </td>
-                            <td class="p-5 text-right opacity-80 group-hover:opacity-100 transition-opacity">
-                                <button type="button" onclick="confirmDelete({{ $task->id }})" class="inline-flex items-center gap-1.5 text-xs font-bold text-error bg-error/10 px-4 py-2 rounded-xl hover:bg-error hover:text-white transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
-                                    <span class="material-symbols-outlined text-[16px]">delete</span> Hapus
-                                </button>
-                                
-                                <form id="delete-form-{{ $task->id }}" action="{{ route('admin.task.destroy', $task->id) }}" method="POST" class="hidden">
-                                    @csrf
-                                    <input type="hidden" name="reason" id="delete-reason-{{ $task->id }}">
-                                </form>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="5" class="p-10 text-center">
-                                <div class="flex flex-col items-center justify-center text-on-surface-variant">
-                                    <span class="material-symbols-outlined text-4xl mb-2 opacity-50">inbox</span>
-                                    <p class="font-bold">Belum ada task di database.</p>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
     <!-- Reports List -->
-    <section class="animate-fade-in-up" style="animation-delay: 200ms;">
+    <section class="animate-fade-in-up" style="animation-delay: 100ms;">
         <h2 class="text-xl font-extrabold text-on-surface mb-5 flex items-center gap-3">
             <div class="w-8 h-8 rounded-full bg-[#FFB400]/10 flex items-center justify-center text-[#FFB400]">
                 <span class="material-symbols-outlined text-[18px]">flag</span>
@@ -258,6 +185,79 @@
                                 <div class="flex flex-col items-center justify-center text-on-surface-variant">
                                     <span class="material-symbols-outlined text-4xl mb-2 text-[#FFB400]/50">verified_user</span>
                                     <p class="font-bold">Belum ada laporan. Aman terkendali!</p>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tasks List -->
+    <section class="animate-fade-in-up" style="animation-delay: 200ms;">
+        <h2 class="text-xl font-extrabold text-on-surface mb-5 flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                <span class="material-symbols-outlined text-[18px]">list_alt</span>
+            </div>
+            Semua Task (Log)
+        </h2>
+        <div class="bg-surface rounded-3xl shadow-sm border border-surface-bright overflow-hidden hover:shadow-md transition-shadow duration-300">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-surface-container-low/50 text-on-surface-variant text-xs uppercase tracking-wider border-b border-surface-bright">
+                            <th class="p-5 font-bold">Judul</th>
+                            <th class="p-5 font-bold">Pembuat</th>
+                            <th class="p-5 font-bold">Kategori</th>
+                            <th class="p-5 font-bold">Status</th>
+                            <th class="p-5 font-bold text-right">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        @forelse($tasks as $task)
+                        <tr class="border-b border-surface-bright last:border-0 hover:bg-surface-container-low transition-colors group">
+                            <td class="p-5 text-on-surface font-semibold">
+                                <a href="{{ route('task.show', $task->id) }}" class="hover:text-primary transition-colors flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px] text-primary/70">assignment</span>
+                                    {{ $task->title }}
+                                </a>
+                            </td>
+                            <td class="p-5 text-on-surface-variant flex items-center gap-2">
+                                <img src="{{ $task->requester->avatar_url ?? 'https://ui-avatars.com/api/?name='.urlencode($task->requester->name).'&color=FFFFFF&background=0040df' }}" class="w-6 h-6 rounded-full" alt="avatar">
+                                {{ $task->requester->name }}
+                            </td>
+                            <td class="p-5">
+                                <span class="bg-surface-container-high text-on-surface px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide">{{ $task->category }}</span>
+                            </td>
+                            <td class="p-5">
+                                <span class="px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide shadow-sm
+                                    {{ $task->status == 'open' ? 'bg-primary-container text-on-primary-container' : '' }}
+                                    {{ $task->status == 'in_progress' ? 'bg-[#FFB400]/20 text-[#4A3400]' : '' }}
+                                    {{ $task->status == 'completed' ? 'bg-tertiary-container text-white' : '' }}
+                                    {{ $task->status == 'cancelled' ? 'bg-error-container text-on-error-container' : '' }}
+                                ">
+                                    {{ ucfirst($task->status) }}
+                                </span>
+                            </td>
+                            <td class="p-5 text-right opacity-80 group-hover:opacity-100 transition-opacity">
+                                <button type="button" onclick="confirmDelete({{ $task->id }})" class="inline-flex items-center gap-1.5 text-xs font-bold text-error bg-error/10 px-4 py-2 rounded-xl hover:bg-error hover:text-white transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
+                                    <span class="material-symbols-outlined text-[16px]">delete</span> Hapus
+                                </button>
+                                
+                                <form id="delete-form-{{ $task->id }}" action="{{ route('admin.task.destroy', $task->id) }}" method="POST" class="hidden">
+                                    @csrf
+                                    <input type="hidden" name="reason" id="delete-reason-{{ $task->id }}">
+                                </form>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="5" class="p-10 text-center">
+                                <div class="flex flex-col items-center justify-center text-on-surface-variant">
+                                    <span class="material-symbols-outlined text-4xl mb-2 opacity-50">inbox</span>
+                                    <p class="font-bold">Belum ada task di database.</p>
                                 </div>
                             </td>
                         </tr>

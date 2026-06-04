@@ -59,6 +59,16 @@ Route::middleware(['auth'])->group(function () {
     
     // Admin Routes
     Route::get('/admin/dashboard', [\App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/test-admin', function() {
+        try {
+            $totalUsers = \App\Models\User::count();
+            $totalTasks = \App\Models\Task::count();
+            $reports = \App\Models\Report::with(['reporter', 'reported', 'task'])->latest()->get();
+            return "OK! Users: $totalUsers, Tasks: $totalTasks, Reports: " . $reports->count();
+        } catch (\Exception $e) {
+            return "ERROR: " . $e->getMessage() . " in " . $e->getFile() . ":" . $e->getLine();
+        }
+    });
     Route::get('/admin/tasks/pending-html', [\App\Http\Controllers\AdminController::class, 'getPendingTasksHtml'])->name('admin.tasks.pending_html');
     Route::post('/admin/task/{id}/delete', [\App\Http\Controllers\AdminController::class, 'destroyTask'])->name('admin.task.destroy');
     Route::post('/admin/user/{id}/ban', [\App\Http\Controllers\AdminController::class, 'banUser'])->name('admin.user.ban');

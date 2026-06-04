@@ -22,9 +22,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/task/{task}', [TaskController::class, 'show'])->name('task.show');
     Route::post('/task/{task}/accept/{application}', [TaskController::class, 'accept'])->name('task.accept');
     
+    Route::get('/task/{task}/edit', [TaskController::class, 'edit'])->name('task.edit');
+    Route::put('/task/{task}', [TaskController::class, 'update'])->name('task.update');
     Route::post('/task/{task}/complete', [TaskController::class, 'complete'])->name('task.complete');
     Route::post('/task/{task}/verify', [TaskController::class, 'verify'])->name('task.verify');
     Route::post('/task/{task}/cancel-progress', [TaskController::class, 'cancelProgress'])->name('task.cancel_progress');
+    
+    // Leaderboard Route
+    Route::get('/leaderboard', [\App\Http\Controllers\LeaderboardController::class, 'index'])->name('leaderboard.index');
     
     // Activity Route
     Route::get('/activity', [\App\Http\Controllers\ActivityController::class, 'index'])->name('activity.index');

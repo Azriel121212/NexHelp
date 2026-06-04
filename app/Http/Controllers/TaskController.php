@@ -48,6 +48,62 @@ class TaskController extends Controller
         return redirect()->route('home')->with('success', 'Request jasa berhasil diposting dan sedang menunggu persetujuan Admin!');
     }
 
+    public function edit(Task $task)
+    {
+        if ($task->requester_id !== Auth::id()) {
+            return back()->with('error', 'Ini bukan request lu der!');
+        }
+
+        if (!in_array($task->status, ['Open', 'Pending Approval'])) {
+            return back()->with('error', 'Request ini udah jalan atau selesai, nggak bisa diedit lagi.');
+        }
+
+        if ($task->applications()->exists()) {
+            return back()->with('error', 'Udah ada yang nawarin bantuan, lu nggak bisa edit lagi.');
+        }
+
+        return view('task.edit', compact('task'));
+    }
+
+    public function update(Request $request, Task $task)
+    {
+        if ($task->requester_id !== Auth::id() || !in_array($task->status, ['Open', 'Pending Approval']) || $task->applications()->exists()) {
+            return back()->with('error', 'Lu nggak berhak edit task ini.');
+        }
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'category' => 'required|string',
+            'reward_points' => 'required|integer|min:1',
+            'schedule_date' => 'required|date',
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i|after:start_time',
+            'location' => 'required|string|max:255',
+        ]);
+
+        $user = Auth::user();
+
+        // Hitung selisih poin baru dan lama
+        $diff = $validated['reward_points'] - $task->reward_points;
+
+        if ($diff > 0 && $user->points < $diff) {
+            return back()->withInput()->withErrors(['reward_points' => 'Poin lu nggak cukup buat nambahin reward! Sisa poin lu: ' . $user->points]);
+        }
+
+        // Potong/tambah poin dari selisih
+        if ($diff !== 0) {
+            $user->points -= $diff;
+            $user->save();
+        }
+
+        $validated['deadline'] = $validated['schedule_date'] . ' ' . $validated['end_time'] . ':00';
+        
+        $task->update($validated);
+
+        return redirect()->route('task.show', $task->id)->with('success', 'Request jasa lu berhasil di-update!');
+    }
+
     public function cancel(Task $task)
     {
         $user = Auth::user();

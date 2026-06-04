@@ -23,6 +23,9 @@
                 <span class="absolute top-1 right-1 w-2.5 h-2.5 bg-error rounded-full border-2 border-surface-bright"></span>
             @endif
         </a>
+        <a href="{{ route('leaderboard.index') }}" class="flex items-center justify-center bg-surface-bright hover:bg-surface-container-high p-2 rounded-full transition-colors" title="Leaderboard">
+            <span class="material-symbols-outlined text-[#FFB400]" style="font-variation-settings: 'FILL' 1;">trophy</span>
+        </a>
         <a href="{{ route('chat.index') }}" class="flex items-center justify-center bg-surface-bright hover:bg-surface-container-high p-2 rounded-full transition-colors" title="Pesan">
             <span class="material-symbols-outlined text-on-surface-variant">chat</span>
         </a>

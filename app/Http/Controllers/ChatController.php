@@ -90,16 +90,16 @@ class ChatController extends Controller
             if ($isMe) {
                 $html .= '<div class="flex items-end justify-end gap-2">';
                 $html .= '<div class="max-w-[75%] bg-primary text-on-primary p-3 rounded-2xl rounded-tr-sm shadow-sm">';
-                $html .= '<p class="text-sm">' . e($msg->message) . '</p>';
-                $html .= '<span class="text-[10px] text-primary-container mt-1 block text-right opacity-80">' . $msg->created_at->format('H:i') . '</span>';
+                $html .= '<p class="text-sm whitespace-pre-wrap">' . e($msg->message) . '</p>';
+                $html .= '<span class="text-[9px] text-primary-fixed-dim mt-1 block text-right">' . $msg->created_at->format('H:i') . '</span>';
                 $html .= '</div></div>';
             } else {
                 $html .= '<div class="flex items-end gap-2">';
                 $html .= '<img src="' . $msg->sender->avatar_url . '" alt="Avatar" class="w-8 h-8 rounded-full object-cover mb-1">';
                 $html .= '<div class="max-w-[75%] bg-surface-container text-on-surface p-3 rounded-2xl rounded-tl-sm shadow-sm border border-surface-bright">';
                 $html .= '<p class="text-xs font-bold text-on-surface-variant mb-1">' . e($msg->sender->name) . '</p>';
-                $html .= '<p class="text-sm">' . e($msg->message) . '</p>';
-                $html .= '<span class="text-[10px] text-on-surface-variant mt-1 block opacity-80">' . $msg->created_at->format('H:i') . '</span>';
+                $html .= '<p class="text-sm whitespace-pre-wrap">' . e($msg->message) . '</p>';
+                $html .= '<span class="text-[9px] text-outline mt-1 block text-right">' . $msg->created_at->format('H:i') . '</span>';
                 $html .= '</div></div>';
             }
         }

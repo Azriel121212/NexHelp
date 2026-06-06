@@ -99,6 +99,9 @@
                                         <span class="ml-1">{{ $app->user->reviewsReceived->count() > 0 ? number_format($app->user->reviewsReceived->avg('rating'), 1) : 'Baru' }}</span>
                                     </div>
                                 </div>
+                                @if($app->user->nim)
+                                <p class="text-xs text-on-surface-variant font-bold truncate">{{ $app->user->nim }}</p>
+                                @endif
                                 <p class="text-xs text-on-surface-variant truncate">{{ $app->user->faculty }} • {{ $app->user->major }}</p>
                                 
                                 @if($app->user->skills)

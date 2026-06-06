@@ -35,6 +35,9 @@
         </div>
         <div>
             <h1 class="text-2xl font-extrabold text-on-surface">{{ $user->name }}</h1>
+            @if($user->nim)
+                <p class="text-on-surface-variant font-bold text-sm">{{ $user->nim }}</p>
+            @endif
             <p class="text-on-surface-variant text-sm">{{ $user->faculty }} • {{ $user->major }}</p>
         </div>
         

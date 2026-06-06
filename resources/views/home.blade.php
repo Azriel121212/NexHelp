@@ -79,6 +79,7 @@
                     'Diskusi Koding / Proyek', 
                     'Review Jurnal / Proofreading', 
                     'Bantuan Penelitian / Kuesioner', 
+                    'Bantuan Event / Kepanitiaan',
                     'Pinjam Buku / Referensi', 
                     'Lainnya'
                 ];

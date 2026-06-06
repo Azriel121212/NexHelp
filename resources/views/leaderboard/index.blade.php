@@ -60,10 +60,10 @@
 
     <!-- The Rest of the List (4-10) -->
     <div class="bg-surface rounded-2xl shadow-sm border border-surface-bright overflow-hidden">
-        @foreach($topUsers->skip(3) as $index => $user)
+        @foreach($topUsers->skip(3) as $user)
         <div class="flex items-center gap-4 p-4 border-b border-surface-bright last:border-0 hover:bg-surface-container-low transition-colors">
             <div class="w-8 text-center text-on-surface-variant font-bold text-lg">
-                {{ $index + 4 }}
+                {{ $loop->iteration + 3 }}
             </div>
             <img src="{{ $user->avatar_url }}" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-surface-bright">
             <div class="flex-1">

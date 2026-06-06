@@ -17,6 +17,7 @@
                 extend: {
                     colors: {
                         "primary": "#0040df",
+                        "on-primary": "#ffffff",
                         "primary-container": "#2d5bff",
                         "on-primary-container": "#efefff",
                         "primary-fixed": "#dde1ff",

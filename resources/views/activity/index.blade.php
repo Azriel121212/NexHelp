@@ -156,7 +156,7 @@
                     } else {
                         $diff = now()->diff($startDateTime);
                         $timeText = "Dimulai dalam: " . ($diff->d > 0 ? $diff->d . ' hari ' : '') . $diff->h . " jam " . $diff->i . " menit";
-                        $timeColor = "text-primary bg-primary-container";
+                        $timeColor = "text-on-primary-container bg-primary-container";
                     }
                 @endphp
                 <div class="flex items-center gap-2 mb-4">

@@ -169,7 +169,7 @@
                 Tarik Tunai Sekarang
             </button>
             @if($user->points < 50)
-                <p class="text-error text-xs text-center mt-2">Saldo poin lu belum cukup (Min. 50).</p>
+                <p class="text-error text-xs text-center mt-2">Saldo poin Anda belum cukup (Min. 50).</p>
             @endif
         </form>
     </div>

@@ -44,7 +44,7 @@
             <div class="text-center py-12">
                 <span class="material-symbols-outlined text-6xl text-outline-variant mb-4">forum</span>
                 <p class="text-on-surface-variant font-bold">Belum ada obrolan.</p>
-                <p class="text-sm text-outline">Lu harus nerima helper atau diterima sebagai helper dulu buat mulai chattingan.</p>
+                <p class="text-sm text-outline">Anda harus menerima helper atau diterima sebagai helper terlebih dahulu untuk mulai mengirim pesan.</p>
             </div>
         @endforelse
     </div>

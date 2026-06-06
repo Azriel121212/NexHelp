@@ -24,13 +24,13 @@
     <!-- Tabs -->
     <div class="flex border-b border-surface-bright mb-6" x-data="{ tab: 'request' }">
         <button @click="tab = 'request'" :class="tab === 'request' ? 'border-primary text-primary font-bold' : 'border-transparent text-on-surface-variant font-medium'" class="flex-1 pb-3 text-center border-b-2 transition-colors">
-            Request Gw
+            Request Saya
         </button>
         <button @click="tab = 'tugas'" :class="tab === 'tugas' ? 'border-primary text-primary font-bold' : 'border-transparent text-on-surface-variant font-medium'" class="flex-1 pb-3 text-center border-b-2 transition-colors">
-            Tugas Gw (Kerjaan)
+            Tugas Saya (Kerjaan)
         </button>
 
-        <!-- Tab Content: Request Gw -->
+        <!-- Tab Content: Request Saya -->
         <div x-show="tab === 'request'" class="w-full absolute left-0 right-0 px-4 mt-12">
             @forelse($requestedTasks as $task)
             <article class="bg-surface rounded-xl p-4 shadow-level-1 mb-4 border border-surface-container-high">
@@ -66,7 +66,7 @@
                     } else {
                         $diff = now()->diff($startDateTime);
                         $timeText = "Dimulai dalam: " . ($diff->d > 0 ? $diff->d . ' hari ' : '') . $diff->h . " jam " . $diff->i . " menit";
-                        $timeColor = "text-primary bg-primary-container";
+                        $timeColor = "text-on-primary-container bg-primary-container";
                     }
                 @endphp
                 <div class="flex items-center gap-2 mb-4">
@@ -96,7 +96,7 @@
                     @if(in_array($task->status, ['Open', 'Pending Approval', 'In Progress', 'Pending Verification']))
                         <form action="{{ route('task.cancel', $task->id) }}" method="POST">
                             @csrf
-                            <button type="submit" class="text-xs font-bold text-error bg-error-container px-4 py-2 rounded-lg hover:bg-error hover:text-white transition-colors" onclick="return confirm('Yakin batalin? Poin lu balik 100%.')">
+                            <button type="submit" class="text-xs font-bold text-error bg-error-container px-4 py-2 rounded-lg hover:bg-error hover:text-white transition-colors" onclick="return confirm('Yakin membatalkan? Poin Anda kembali 100%.')">
                                 Batalin
                             </button>
                         </form>
@@ -123,12 +123,12 @@
             </article>
             @empty
                 <div class="text-center py-12">
-                    <p class="text-on-surface-variant text-sm">Lu belum bikin request apapun yang aktif.</p>
+                    <p class="text-on-surface-variant text-sm">Anda belum membuat request apapun yang aktif.</p>
                 </div>
             @endforelse
         </div>
 
-        <!-- Tab Content: Tugas Gw -->
+        <!-- Tab Content: Tugas Saya -->
         <div x-show="tab === 'tugas'" class="w-full absolute left-0 right-0 px-4 mt-12" style="display: none;">
             @forelse($helperTasks as $task)
             <article class="bg-surface rounded-xl p-4 shadow-level-1 mb-4 border border-surface-container-high">
@@ -186,7 +186,7 @@
                         @if($isStarted)
                             <form action="{{ route('task.complete', $task->id) }}" method="POST">
                                 @csrf
-                                <button type="submit" class="text-xs font-bold text-on-primary bg-primary px-4 py-2 rounded-lg hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm" onclick="return confirm('Peringatan: Tombol ini cuma dipencet KALAU KERJAAN LU UDAH BERES ya! Udah beneran kelar?')">
+                                <button type="submit" class="text-xs font-bold text-on-primary bg-primary px-4 py-2 rounded-lg hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm" onclick="return confirm('Peringatan: Tombol ini hanya ditekan JIKA TUGAS ANDA SUDAH SELESAI! Apakah Anda yakin?')">
                                     Lapor Tugas Selesai
                                 </button>
                             </form>
@@ -200,7 +200,7 @@
             </article>
             @empty
                 <div class="text-center py-12">
-                    <p class="text-on-surface-variant text-sm">Lu belum ngambil kerjaan apapun.</p>
+                    <p class="text-on-surface-variant text-sm">Anda belum mengambil pekerjaan apapun.</p>
                 </div>
             @endforelse
         </div>

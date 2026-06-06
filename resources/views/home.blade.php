@@ -3,15 +3,15 @@
 
 @section('content')
 <!-- TopAppBar -->
-<header class="bg-surface text-primary shadow-sm flex justify-between items-center px-4 py-2 w-full sticky top-0 z-50">
-    <a href="{{ route('profile') }}" class="flex items-center gap-2 sm:gap-3 hover:bg-surface-bright p-2 -ml-2 rounded-xl transition-colors">
+<header class="bg-surface text-primary shadow-sm flex items-center justify-between px-4 py-2 w-full sticky top-0 z-50 overflow-x-auto hide-scrollbar gap-4">
+    <a href="{{ route('profile') }}" class="flex items-center gap-2 sm:gap-3 hover:bg-surface-bright p-2 -ml-2 rounded-xl transition-colors flex-shrink-0">
         <img alt="User Profile" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover shadow-sm border border-surface-bright" src="{{ Auth::user()->avatar_url }}"/>
         <div>
             <h1 class="font-headline-md text-xl sm:text-2xl text-primary font-extrabold tracking-tight">KawanKampus</h1>
             <p class="font-label-sm text-[10px] sm:text-xs text-on-surface-variant line-clamp-1">{{ $user->name }}</p>
         </div>
     </a>
-    <div class="flex items-center gap-1 sm:gap-3">
+    <div class="flex items-center gap-1 sm:gap-3 flex-shrink-0">
         @if($user->is_admin)
         <a href="{{ route('admin.dashboard') }}" class="hidden sm:flex items-center justify-center bg-error-container text-on-error-container hover:bg-error hover:text-white p-2 rounded-full transition-colors" title="Admin Panel">
             <span class="material-symbols-outlined">admin_panel_settings</span>
@@ -132,7 +132,7 @@
                     @if($task->requester_id == Auth::id())
                         <form action="{{ route('task.cancel', $task->id) }}" method="POST">
                             @csrf
-                            <button type="submit" class="flex items-center gap-1 text-xs font-bold text-error bg-error-container px-3 py-1.5 rounded-full hover:bg-error hover:text-white transition-colors" onclick="return confirm('Yakin mau batalin jasa ini? Poin lu bakal balik 100%.')">
+                            <button type="submit" class="flex items-center gap-1 text-xs font-bold text-error bg-error-container px-3 py-1.5 rounded-full hover:bg-error hover:text-white transition-colors" onclick="return confirm('Yakin ingin membatalkan jasa ini? Poin Anda akan kembali 100%.')">
                                 <span class="material-symbols-outlined text-[14px]">cancel</span> Batal
                             </button>
                         </form>

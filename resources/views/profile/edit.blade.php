@@ -47,7 +47,7 @@
 
             <div>
                 <label class="block text-sm font-bold text-on-surface-variant mb-1">Bio Singkat</label>
-                <textarea name="bio" rows="3" class="w-full bg-surface-bright border border-outline-variant rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="Tulis sedikit tentang diri lu atau keahlian lu...">{{ old('bio', $user->bio) }}</textarea>
+                <textarea name="bio" rows="3" class="w-full bg-surface-bright border border-outline-variant rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="Tulis sedikit tentang diri Anda atau keahlian Anda...">{{ old('bio', $user->bio) }}</textarea>
             </div>
         </section>
 

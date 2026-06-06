@@ -71,7 +71,7 @@
                     <input name="reward_points" class="w-full bg-surface border-none rounded-xl pl-10 pr-4 py-3 text-xl font-bold text-on-background text-right focus:ring-2 focus:ring-primary" type="number" value="{{ old('reward_points', $task->reward_points) }}" min="1" required/>
                 </div>
             </div>
-            <p class="text-xs text-on-surface-variant mt-1 text-right">Perubahan poin bakal nyesuain saldo lu saat ini.</p>
+            <p class="text-xs text-on-surface-variant mt-1 text-right">Perubahan poin akan menyesuaikan saldo Anda saat ini.</p>
         </section>
     </form>
 </main>
@@ -121,7 +121,7 @@
     // Cegah End Time lebih kecil dari Start Time
     endTimeInput.addEventListener('change', function() {
         if (startTimeInput.value && this.value < startTimeInput.value) {
-            alert("Selesainya masa lebih cepet dari mulainya? Benerin dulu jam selesainya der!");
+            alert("Waktu selesai tidak boleh lebih awal dari waktu mulai. Mohon perbaiki waktu selesai!");
             
             // Revert ke jam mulai + 1 jam
             let [hours, minutes] = startTimeInput.value.split(':');

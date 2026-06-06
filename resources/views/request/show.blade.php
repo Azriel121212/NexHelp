@@ -72,7 +72,7 @@
                     @if(in_array($task->status, ['Open', 'Pending Approval', 'In Progress', 'Pending Verification']))
                         <form action="{{ route('task.cancel', $task->id) }}" method="POST" class="inline">
                             @csrf
-                            <button type="submit" class="inline-flex items-center gap-1 bg-error-container text-error hover:bg-error hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-colors" onclick="return confirm('Yakin batalin tugas ini? Poin lu bakal balik 100%.')">
+                            <button type="submit" class="inline-flex items-center gap-1 bg-error-container text-error hover:bg-error hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-colors" onclick="return confirm('Yakin membatalkan tugas ini? Poin Anda akan kembali 100%.')">
                                 <span class="material-symbols-outlined text-[16px]">cancel</span> Batalin Jasa
                             </button>
                         </form>
@@ -149,7 +149,7 @@
             @endphp
             @if($hasApplied)
                 <div class="bg-surface-container-high text-on-surface-variant p-4 rounded-xl text-center font-bold text-sm shadow-sm">
-                    Lu udah nawarin bantuan. Menunggu persetujuan...
+                    Anda sudah menawarkan bantuan. Menunggu persetujuan...
                 </div>
             @else
                 <form action="{{ route('task.apply', $task->id) }}" method="POST">

@@ -9,9 +9,9 @@ class LeaderboardController extends Controller
 {
     public function index()
     {
-        // Get top 10 users by completed tasks (Verified)
+        // Get top 10 users by completed tasks (Completed)
         $topUsers = User::withCount(['tasksHelped' => function ($query) {
-            $query->where('status', 'Verified');
+            $query->where('status', 'Completed');
         }])->orderBy('tasks_helped_count', 'desc')
           ->orderBy('points', 'desc') // fallback kalo ada yang sama
           ->take(10)->get();

@@ -33,7 +33,7 @@
             <h2 class="text-sm font-bold text-on-surface-variant">Kategori Jasa</h2>
             <select name="category" class="w-full bg-surface border-none rounded-xl p-3 text-sm focus:ring-2 focus:ring-primary cursor-pointer" required>
                 <option value="Tutor / Teman Belajar" {{ old('category') == 'Tutor / Teman Belajar' ? 'selected' : '' }}>Tutor / Teman Belajar</option>
-                <option value="Bantuan Koding / Tugas" {{ old('category') == 'Bantuan Koding / Tugas' ? 'selected' : '' }}>Bantuan Koding / Tugas</option>
+                <option value="Diskusi Koding / Proyek" {{ old('category') == 'Diskusi Koding / Proyek' ? 'selected' : '' }}>Diskusi Koding / Proyek</option>
                 <option value="Review Jurnal / Proofreading" {{ old('category') == 'Review Jurnal / Proofreading' ? 'selected' : '' }}>Review Jurnal / Proofreading</option>
                 <option value="Bantuan Penelitian / Kuesioner" {{ old('category') == 'Bantuan Penelitian / Kuesioner' ? 'selected' : '' }}>Bantuan Penelitian / Kuesioner</option>
                 <option value="Pinjam Buku / Referensi" {{ old('category') == 'Pinjam Buku / Referensi' ? 'selected' : '' }}>Pinjam Buku / Alat Praktikum</option>

@@ -76,7 +76,7 @@
                 $categories = [
                     'Semua', 
                     'Tutor / Teman Belajar', 
-                    'Bantuan Koding / Tugas', 
+                    'Diskusi Koding / Proyek', 
                     'Review Jurnal / Proofreading', 
                     'Bantuan Penelitian / Kuesioner', 
                     'Pinjam Buku / Referensi', 

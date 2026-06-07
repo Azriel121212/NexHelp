@@ -21,7 +21,7 @@ class ReviewController extends Controller
         // Cek kalau udah pernah review
         $existingReview = Review::where('task_id', $task->id)->first();
         if ($existingReview) {
-            return redirect()->route('activity.index')->with('success', 'Lu udah ngasih rating buat tugas ini!');
+            return redirect()->route('activity.index')->with('success', 'Anda sudah memberikan rating untuk tugas ini!');
         }
 
         return view('review.create', compact('task'));
@@ -48,6 +48,6 @@ class ReviewController extends Controller
             'comment' => $validated['comment'],
         ]);
 
-        return redirect()->route('activity.index')->with('success', 'Mantap! Ulasan lu udah tersimpan. Makasih udah pakai KawanKampus!');
+        return redirect()->route('activity.index')->with('success', 'Mantap! Ulasan Anda telah tersimpan. Terima kasih telah menggunakan KawanKampus!');
     }
 }

@@ -39,7 +39,7 @@ class WalletController extends Controller
         $user->points += $points;
         $user->save();
 
-        return back()->with('success', "Top-Up {$points} Pts berhasil! Saldo lu udah bertambah.");
+        return back()->with('success', "Top-Up {$points} Pts berhasil! Saldo Anda telah bertambah.");
     }
 
     public function withdraw(Request $request)

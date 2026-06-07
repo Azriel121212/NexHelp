@@ -70,6 +70,6 @@ class ProfileController extends Controller
         $user->skills = $validated['skills'] ?? null;
         $user->save();
 
-        return redirect()->route('profile')->with('success', 'Profil lu berhasil di-update!');
+        return redirect()->route('profile')->with('success', 'Profil Anda berhasil diperbarui!');
     }
 }

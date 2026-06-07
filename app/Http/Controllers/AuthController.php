@@ -64,7 +64,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        $request->session()->flash('welcome_message', 'Hai ' . $user->name . '! Akun lu berhasil dibuat. Selamat datang di KawanKampus!');
+        $request->session()->flash('welcome_message', 'Hai ' . $user->name . '! Akun Anda berhasil dibuat. Selamat datang di KawanKampus!');
 
         return redirect('/');
     }

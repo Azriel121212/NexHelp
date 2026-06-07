@@ -31,7 +31,7 @@ class TaskController extends Controller
         $user = Auth::user();
 
         if ($user->points < $validated['reward_points']) {
-            return back()->withInput()->withErrors(['reward_points' => 'Poin lu nggak cukup buat ngasih reward segini! Sisa poin lu: ' . $user->points]);
+            return back()->withInput()->withErrors(['reward_points' => 'Poin Anda tidak cukup untuk memberikan reward sebesar ini! Sisa poin Anda: ' . $user->points]);
         }
 
         // Potong poin
@@ -51,7 +51,7 @@ class TaskController extends Controller
     public function edit(Task $task)
     {
         if ($task->requester_id !== Auth::id()) {
-            return back()->with('error', 'Ini bukan request lu der!');
+            return back()->with('error', 'Ini bukan request Anda!');
         }
 
         if ($task->status !== 'Pending Approval') {
@@ -59,7 +59,7 @@ class TaskController extends Controller
         }
 
         if ($task->applications()->exists()) {
-            return back()->with('error', 'Udah ada yang nawarin bantuan, lu nggak bisa edit lagi.');
+            return back()->with('error', 'Sudah ada yang menawarkan bantuan, Anda tidak dapat mengedit lagi.');
         }
 
         return view('task.edit', compact('task'));
@@ -68,7 +68,7 @@ class TaskController extends Controller
     public function update(Request $request, Task $task)
     {
         if ($task->requester_id !== Auth::id() || $task->status !== 'Pending Approval' || $task->applications()->exists()) {
-            return back()->with('error', 'Lu nggak berhak edit task ini, atau tasknya udah di-ACC.');
+            return back()->with('error', 'Anda tidak berhak mengedit tugas ini, atau tugas sudah disetujui.');
         }
 
         $validated = $request->validate([
@@ -88,7 +88,7 @@ class TaskController extends Controller
         $diff = $validated['reward_points'] - $task->reward_points;
 
         if ($diff > 0 && $user->points < $diff) {
-            return back()->withInput()->withErrors(['reward_points' => 'Poin lu nggak cukup buat nambahin reward! Sisa poin lu: ' . $user->points]);
+            return back()->withInput()->withErrors(['reward_points' => 'Poin Anda tidak cukup untuk menambahkan reward! Sisa poin Anda: ' . $user->points]);
         }
 
         // Potong/tambah poin dari selisih
@@ -101,7 +101,7 @@ class TaskController extends Controller
         
         $task->update($validated);
 
-        return redirect()->route('task.show', $task->id)->with('success', 'Request jasa lu berhasil di-update!');
+        return redirect()->route('task.show', $task->id)->with('success', 'Request jasa Anda berhasil diperbarui!');
     }
 
     public function cancel(Task $task)
@@ -110,7 +110,7 @@ class TaskController extends Controller
 
         // Pastikan task milik user ini dan statusnya masih Open
         if ($task->requester_id !== $user->id) {
-            return back()->with('error', 'Ini bukan request lu der!');
+            return back()->with('error', 'Ini bukan request Anda!');
         }
 
         if ($task->status !== 'Open') {
@@ -125,7 +125,7 @@ class TaskController extends Controller
         $task->status = 'Cancelled';
         $task->save();
 
-        return redirect()->route('home')->with('success', 'Request berhasil dibatalkan dan poin lu udah balik 100%!');
+        return redirect()->route('home')->with('success', 'Request berhasil dibatalkan dan poin Anda telah kembali 100%!');
     }
 
     public function apply(Task $task)
@@ -134,7 +134,7 @@ class TaskController extends Controller
 
         // Jangan izinkan ambil task sendiri
         if ($task->requester_id === $user->id) {
-            return back()->with('error', 'Nggak bisa ngelamar request lu sendiri der!');
+            return back()->with('error', 'Tidak bisa melamar request Anda sendiri!');
         }
 
         // Pastikan masih open
@@ -144,7 +144,7 @@ class TaskController extends Controller
 
         // Cek kalau udah pernah apply
         if (\App\Models\TaskApplication::where('task_id', $task->id)->where('user_id', $user->id)->exists()) {
-            return back()->with('error', 'Lu udah nawarin bantuan ke sini, tunggu aja di-acc!');
+            return back()->with('error', 'Anda sudah menawarkan bantuan ke sini, mohon tunggu persetujuan.');
         }
 
         \App\Models\TaskApplication::create([
@@ -152,7 +152,7 @@ class TaskController extends Controller
             'user_id' => $user->id
         ]);
 
-        return back()->with('success', 'Bantuan lu udah ditawarin! Tinggal nunggu si pembuat request milih lu.');
+        return back()->with('success', 'Bantuan Anda telah ditawarkan! Tinggal menunggu pembuat request memilih Anda.');
     }
 
     public function show(Task $task)
@@ -183,7 +183,7 @@ class TaskController extends Controller
         $task->status = 'In Progress';
         $task->save();
 
-        return redirect()->route('activity.index')->with('success', 'Kandidat berhasil dipilih! Task lu sekarang berstatus In Progress.');
+        return redirect()->route('activity.index')->with('success', 'Kandidat berhasil dipilih! Tugas Anda sekarang berstatus In Progress.');
     }
 
     public function complete(Task $task)
@@ -257,6 +257,6 @@ class TaskController extends Controller
         $user->points += $task->reward_points;
         $user->save();
 
-        return back()->with('success', 'Tugas dibatalkan. Poin lu udah dikembalikan 100%.');
+        return back()->with('success', 'Tugas dibatalkan. Poin Anda telah dikembalikan 100%.');
     }
 }

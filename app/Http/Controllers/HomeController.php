@@ -42,6 +42,19 @@ class HomeController extends Controller
             $q->where('requester_id', $user->id)->orWhere('helper_id', $user->id);
         })->whereIn('status', ['In Progress', 'Pending Verification'])->count();
 
-        return view('home', compact('user', 'tasks', 'currentCategory', 'currentSearch', 'activeTaskCount'));
+        // Olah skills user jadi array
+        $userSkills = [];
+        if (!empty($user->skills)) {
+            // Pecah berdasarkan koma, bersihkan spasi, jadikan lowercase
+            $rawSkills = explode(',', $user->skills);
+            foreach ($rawSkills as $skill) {
+                $skill = trim(strtolower($skill));
+                if ($skill) {
+                    $userSkills[] = $skill;
+                }
+            }
+        }
+
+        return view('home', compact('user', 'tasks', 'currentCategory', 'currentSearch', 'activeTaskCount', 'userSkills'));
     }
 }

@@ -112,14 +112,34 @@
             </div>
 
             <div class="relative z-10 flex justify-between items-start mb-2">
-                @if($task->category == 'Urgent')
-                    <span class="bg-error-container text-on-error-container px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">{{ $task->category }}</span>
-                @elseif($task->category == 'Lost & Found')
-                    <span class="bg-secondary-fixed text-on-secondary-fixed px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">{{ $task->category }}</span>
-                @else
-                    <span class="bg-primary-fixed text-on-primary-fixed px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">{{ $task->category }}</span>
-                @endif
-                <span class="text-outline text-[10px] font-bold">{{ \Carbon\Carbon::parse($task->created_at)->diffForHumans(null, true, true) }}</span>
+                <div class="flex flex-wrap gap-1">
+                    @if($task->category == 'Urgent')
+                        <span class="bg-error-container text-on-error-container px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">{{ $task->category }}</span>
+                    @elseif($task->category == 'Lost & Found')
+                        <span class="bg-secondary-fixed text-on-secondary-fixed px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">{{ $task->category }}</span>
+                    @else
+                        <span class="bg-primary-fixed text-on-primary-fixed px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">{{ $task->category }}</span>
+                    @endif
+                    
+                    @php
+                        $isMatch = false;
+                        if (!empty($userSkills)) {
+                            $searchTarget = strtolower($task->title . ' ' . $task->description . ' ' . $task->category);
+                            foreach ($userSkills as $skill) {
+                                if (strpos($searchTarget, $skill) !== false) {
+                                    $isMatch = true;
+                                    break;
+                                }
+                            }
+                        }
+                    @endphp
+                    @if($isMatch)
+                        <span class="bg-tertiary text-on-tertiary px-2 py-1 rounded-full text-[10px] font-bold shadow-sm flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[12px]">verified</span> Cocok Buat Anda
+                        </span>
+                    @endif
+                </div>
+                <span class="text-outline text-[10px] font-bold flex-shrink-0">{{ \Carbon\Carbon::parse($task->created_at)->diffForHumans(null, true, true) }}</span>
             </div>
                 <h3 class="relative z-10 text-lg font-bold text-on-surface mb-3 pointer-events-none">{{ $task->title }}</h3>
             </div>

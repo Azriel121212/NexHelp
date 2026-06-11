@@ -33,7 +33,18 @@ class AdminController extends Controller
             session()->now('error', 'Error in reports: ' . $e->getMessage());
         }
 
-        return view('admin.dashboard', compact('totalUsers', 'totalTasks', 'activeTasks', 'pendingTasks', 'tasks', 'reports'));
+        // Data untuk Grafik Kategori Tugas
+        $tasksByCategory = Task::select('category', \Illuminate\Support\Facades\DB::raw('count(*) as total'))
+            ->groupBy('category')
+            ->pluck('total', 'category')
+            ->toArray();
+
+        // Data Total Poin Beredar
+        $totalPointsUsers = User::sum('points');
+        $totalPointsTasks = Task::whereIn('status', ['Open', 'In Progress', 'Pending Verification'])->sum('reward_points');
+        $totalPointsCirculating = $totalPointsUsers + $totalPointsTasks;
+
+        return view('admin.dashboard', compact('totalUsers', 'totalTasks', 'activeTasks', 'pendingTasks', 'tasks', 'reports', 'tasksByCategory', 'totalPointsCirculating'));
     }
 
     public function getPendingTasksHtml()

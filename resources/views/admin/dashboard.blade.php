@@ -18,7 +18,7 @@
 <main class="px-4 py-8 max-w-7xl mx-auto space-y-8 w-full">
     
     <!-- Stats -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div class="bg-gradient-to-br from-primary/10 to-primary-container/20 rounded-3xl p-6 shadow-sm border border-primary/20 flex items-center gap-5 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
             <div class="w-14 h-14 rounded-2xl bg-primary text-white flex justify-center items-center shadow-inner">
                 <span class="material-symbols-outlined text-2xl">group</span>
@@ -46,6 +46,16 @@
             <div>
                 <p class="text-error text-xs font-bold uppercase tracking-wider mb-1">Active Tasks</p>
                 <h3 class="text-3xl font-extrabold text-on-surface">{{ $activeTasks }}</h3>
+            </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-secondary/10 to-secondary-container/20 rounded-3xl p-6 shadow-sm border border-secondary/20 flex items-center gap-5 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+            <div class="w-14 h-14 rounded-2xl bg-secondary text-on-secondary flex justify-center items-center shadow-inner">
+                <span class="material-symbols-outlined text-2xl">toll</span>
+            </div>
+            <div>
+                <p class="text-secondary text-xs font-bold uppercase tracking-wider mb-1">Total Poin Beredar</p>
+                <h3 class="text-3xl font-extrabold text-on-surface">{{ number_format($totalPointsCirculating, 0, ',', '.') }}</h3>
             </div>
         </div>
     </div>
@@ -267,6 +277,21 @@
             </div>
         </div>
     </section>
+
+    <!-- Analytics Chart -->
+    <section class="animate-fade-in-up" style="animation-delay: 300ms;">
+        <h2 class="text-xl font-extrabold text-on-surface mb-5 flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                <span class="material-symbols-outlined text-[18px]">pie_chart</span>
+            </div>
+            Statistik Kategori Tugas
+        </h2>
+        <div class="bg-surface rounded-3xl p-6 shadow-sm border border-surface-bright flex justify-center items-center hover:shadow-md transition-shadow duration-300">
+            <div class="w-full max-w-md">
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </div>
+    </section>
 </main>
 
 <style>
@@ -348,5 +373,58 @@
             })
             .catch(err => console.error(err));
     }, 5000);
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('categoryChart').getContext('2d');
+        const tasksByCategory = @json($tasksByCategory);
+        
+        const labels = Object.keys(tasksByCategory);
+        const data = Object.values(tasksByCategory);
+        
+        // Warna cerah untuk setiap kategori
+        const backgroundColors = [
+            '#0040df', // Primary
+            '#ff6b6b', // Error
+            '#FFB400', // Warning
+            '#4caf50', // Success
+            '#9c27b0', // Purple
+            '#00bcd4', // Cyan
+            '#ff9800', // Orange
+            '#607d8b'  // Blue Grey
+        ];
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    backgroundColor: backgroundColors.slice(0, labels.length),
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                family: "'Nunito Sans', sans-serif",
+                                size: 12,
+                                weight: 'bold'
+                            },
+                            color: '#44474f'
+                        }
+                    }
+                },
+                cutout: '70%'
+            }
+        });
+    });
 </script>
 @endsection

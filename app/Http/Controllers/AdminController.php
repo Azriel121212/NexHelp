@@ -47,6 +47,26 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('totalUsers', 'totalTasks', 'activeTasks', 'pendingTasks', 'tasks', 'reports', 'tasksByCategory', 'totalPointsCirculating'));
     }
 
+    public function users()
+    {
+        if (!Auth::user()->is_admin) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $users = User::latest()->paginate(20);
+        return view('admin.users', compact('users'));
+    }
+
+    public function tasks()
+    {
+        if (!Auth::user()->is_admin) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $tasks = Task::with('requester')->latest()->paginate(20);
+        return view('admin.tasks', compact('tasks'));
+    }
+
     public function getPendingTasksHtml()
     {
         $pendingTasks = Task::with('requester')->where('status', 'Pending Approval')->latest()->get();

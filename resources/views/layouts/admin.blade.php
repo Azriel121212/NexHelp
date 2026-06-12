@@ -86,11 +86,11 @@
             </a>
 
             <p class="px-3 text-xs font-bold text-white/40 uppercase tracking-wider mb-2 mt-6">Manajemen</p>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors cursor-not-allowed opacity-50" title="Coming soon">
+            <a href="{{ route('admin.users') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg {{ request()->routeIs('admin.users') ? 'bg-primary/20 text-primary-fixed-dim font-bold' : 'text-white/70 hover:bg-white/5 hover:text-white' }} transition-colors">
                 <span class="material-symbols-outlined text-[20px]">people</span>
                 Users
             </a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors cursor-not-allowed opacity-50" title="Coming soon">
+            <a href="{{ route('admin.tasks') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg {{ request()->routeIs('admin.tasks') ? 'bg-primary/20 text-primary-fixed-dim font-bold' : 'text-white/70 hover:bg-white/5 hover:text-white' }} transition-colors">
                 <span class="material-symbols-outlined text-[20px]">task</span>
                 Semua Tugas
             </a>

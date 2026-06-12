@@ -59,6 +59,8 @@ Route::middleware(['auth'])->group(function () {
     
     // Admin Routes
     Route::get('/admin/dashboard', [\App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/users', [\App\Http\Controllers\AdminController::class, 'users'])->name('admin.users');
+    Route::get('/admin/tasks', [\App\Http\Controllers\AdminController::class, 'tasks'])->name('admin.tasks');
     Route::get('/test-admin', function() {
         try {
             $totalUsers = \App\Models\User::count();

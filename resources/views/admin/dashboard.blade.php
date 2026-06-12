@@ -1,24 +1,12 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 @section('title', 'Admin Dashboard')
+@section('page_title', 'Dashboard')
+@section('page_description', 'Pusat Kendali Data NexHelp')
 
 @section('content')
-<!-- TopAppBar -->
-<header class="bg-surface/80 backdrop-blur-md text-primary shadow-sm flex items-center px-4 py-3 w-full sticky top-0 z-50 border-b border-surface-bright">
-    <a href="{{ route('home') }}" class="flex items-center gap-2 hover:bg-surface-bright p-2 -ml-2 rounded-xl transition-all duration-300 hover:scale-105 group">
-        <div class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high group-hover:bg-primary/10 transition-colors">
-            <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">arrow_back</span>
-        </div>
-        <div>
-            <h1 class="font-headline-md text-xl sm:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-error to-[#ff6b6b] text-transparent bg-clip-text">Admin Panel</h1>
-            <p class="text-[10px] sm:text-xs text-on-surface-variant font-bold uppercase tracking-wider">Control Center</p>
-        </div>
-    </a>
-</header>
 
-<main class="px-4 py-8 max-w-7xl mx-auto space-y-8 w-full">
-    
     <!-- Stats -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
         <div class="bg-gradient-to-br from-primary/10 to-primary-container/20 rounded-3xl p-6 shadow-sm border border-primary/20 flex items-center gap-5 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
             <div class="w-14 h-14 rounded-2xl bg-primary text-white flex justify-center items-center shadow-inner">
                 <span class="material-symbols-outlined text-2xl">group</span>
@@ -61,7 +49,7 @@
     </div>
 
     <!-- Pending Tasks List -->
-    <section class="animate-fade-in-up">
+    <section class="animate-fade-in-up mt-8">
         <h2 class="text-xl font-extrabold text-on-surface mb-5 flex items-center gap-3">
             <div class="w-8 h-8 rounded-full bg-error/10 flex items-center justify-center text-error">
                 <span class="material-symbols-outlined text-[18px]">pending_actions</span>
@@ -292,7 +280,6 @@
             </div>
         </div>
     </section>
-</main>
 
 <style>
     @keyframes fadeInUp {

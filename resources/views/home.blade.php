@@ -134,8 +134,8 @@
                         }
                     @endphp
                     @if($isMatch)
-                        <span class="bg-tertiary text-on-tertiary px-2 py-1 rounded-full text-[10px] font-bold shadow-sm flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[12px]">verified</span> Cocok Buat Anda
+                        <span class="bg-[#FFB400] text-[#4A3400] px-2 py-1 rounded-full text-[10px] font-extrabold shadow-sm flex items-center gap-1 border border-[#FFB400]/50 animate-pulse">
+                            <span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span> Cocok Buat Anda
                         </span>
                     @endif
                 </div>

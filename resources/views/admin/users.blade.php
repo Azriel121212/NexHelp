@@ -19,13 +19,15 @@
             <tbody class="text-sm">
                 @foreach($users as $user)
                 <tr class="border-b border-surface-bright last:border-0 hover:bg-surface-container-low transition-colors group">
-                    <td class="p-5 text-on-surface flex items-center gap-3 font-medium">
-                        <img src="{{ $user->avatar_url ?? 'https://ui-avatars.com/api/?name='.urlencode($user->name).'&color=FFFFFF&background=0040df' }}" class="w-9 h-9 rounded-full border border-surface-bright" alt="avatar">
-                        <div>
-                            <div class="font-bold">{{ $user->name }}</div>
-                            @if($user->is_admin)
-                                <span class="text-[10px] bg-primary text-white px-2 py-0.5 rounded-full shadow-sm mt-1 inline-block">Admin</span>
-                            @endif
+                    <td class="p-5 text-on-surface font-medium">
+                        <div class="flex items-center gap-3">
+                            <img src="{{ $user->avatar_url ?? 'https://ui-avatars.com/api/?name='.urlencode($user->name).'&color=FFFFFF&background=0040df' }}" class="w-9 h-9 rounded-full border border-surface-bright" alt="avatar">
+                            <div>
+                                <div class="font-bold">{{ $user->name }}</div>
+                                @if($user->is_admin)
+                                    <span class="text-[10px] bg-primary text-white px-2 py-0.5 rounded-full shadow-sm mt-1 inline-block">Admin</span>
+                                @endif
+                            </div>
                         </div>
                     </td>
                     <td class="p-5 text-on-surface-variant">{{ $user->email }}</td>

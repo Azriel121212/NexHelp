@@ -25,9 +25,11 @@
                             {{ $task->title }}
                         </a>
                     </td>
-                    <td class="p-5 text-on-surface-variant flex items-center gap-2">
-                        <img src="{{ $task->requester->avatar_url ?? 'https://ui-avatars.com/api/?name='.urlencode($task->requester->name).'&color=FFFFFF&background=0040df' }}" class="w-6 h-6 rounded-full" alt="avatar">
-                        {{ $task->requester->name }}
+                    <td class="p-5 text-on-surface-variant">
+                        <div class="flex items-center gap-2">
+                            <img src="{{ $task->requester->avatar_url ?? 'https://ui-avatars.com/api/?name='.urlencode($task->requester->name).'&color=FFFFFF&background=0040df' }}" class="w-6 h-6 rounded-full" alt="avatar">
+                            {{ $task->requester->name }}
+                        </div>
                     </td>
                     <td class="p-5">
                         <span class="bg-surface-container-high text-on-surface px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide">{{ $task->category }}</span>

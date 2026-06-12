@@ -76,9 +76,11 @@
                                     {{ $pt->title }}
                                 </a>
                             </td>
-                            <td class="p-5 text-on-surface-variant flex items-center gap-2">
-                                <img src="{{ $pt->requester->avatar_url ?? 'https://ui-avatars.com/api/?name='.urlencode($pt->requester->name).'&color=FFFFFF&background=0040df' }}" class="w-6 h-6 rounded-full" alt="avatar">
-                                {{ $pt->requester->name }}
+                            <td class="p-5 text-on-surface-variant">
+                                <div class="flex items-center gap-2">
+                                    <img src="{{ $pt->requester->avatar_url ?? 'https://ui-avatars.com/api/?name='.urlencode($pt->requester->name).'&color=FFFFFF&background=0040df' }}" class="w-6 h-6 rounded-full" alt="avatar">
+                                    {{ $pt->requester->name }}
+                                </div>
                             </td>
                             <td class="p-5">
                                 <span class="bg-surface-container-high text-on-surface px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide">{{ $pt->category }}</span>
@@ -139,16 +141,20 @@
                     <tbody class="text-sm">
                         @forelse($reports ?? [] as $report)
                         <tr class="border-b border-surface-bright last:border-0 hover:bg-surface-container-low transition-colors group">
-                            <td class="p-5 text-on-surface flex items-center gap-2 font-medium">
-                                <img src="{{ $report->reporter->avatar_url ?? 'https://ui-avatars.com/api/?name='.urlencode($report->reporter->name).'&color=FFFFFF&background=0040df' }}" class="w-6 h-6 rounded-full" alt="avatar">
-                                {{ $report->reporter->name }}
+                            <td class="p-5 text-on-surface font-medium">
+                                <div class="flex items-center gap-2">
+                                    <img src="{{ $report->reporter->avatar_url ?? 'https://ui-avatars.com/api/?name='.urlencode($report->reporter->name).'&color=FFFFFF&background=0040df' }}" class="w-6 h-6 rounded-full" alt="avatar">
+                                    {{ $report->reporter->name }}
+                                </div>
                             </td>
-                            <td class="p-5 text-error font-bold flex items-center gap-2">
-                                <img src="{{ $report->reported->avatar_url ?? 'https://ui-avatars.com/api/?name='.urlencode($report->reported->name).'&color=FFFFFF&background=ba1a1a' }}" class="w-6 h-6 rounded-full" alt="avatar">
-                                {{ $report->reported->name }}
-                                @if($report->reported->is_banned)
-                                    <span class="ml-1 text-[10px] bg-error text-white px-2 py-0.5 rounded-full shadow-sm">BANNED</span>
-                                @endif
+                            <td class="p-5 text-error font-bold">
+                                <div class="flex items-center gap-2">
+                                    <img src="{{ $report->reported->avatar_url ?? 'https://ui-avatars.com/api/?name='.urlencode($report->reported->name).'&color=FFFFFF&background=ba1a1a' }}" class="w-6 h-6 rounded-full" alt="avatar">
+                                    {{ $report->reported->name }}
+                                    @if($report->reported->is_banned)
+                                        <span class="ml-1 text-[10px] bg-error text-white px-2 py-0.5 rounded-full shadow-sm">BANNED</span>
+                                    @endif
+                                </div>
                             </td>
                             <td class="p-5 text-on-surface-variant max-w-xs">
                                 <div class="truncate bg-surface-container-low px-3 py-1.5 rounded-lg border border-surface-bright" title="{{ $report->reason }}">
@@ -222,9 +228,11 @@
                                     {{ $task->title }}
                                 </a>
                             </td>
-                            <td class="p-5 text-on-surface-variant flex items-center gap-2">
-                                <img src="{{ $task->requester->avatar_url ?? 'https://ui-avatars.com/api/?name='.urlencode($task->requester->name).'&color=FFFFFF&background=0040df' }}" class="w-6 h-6 rounded-full" alt="avatar">
-                                {{ $task->requester->name }}
+                            <td class="p-5 text-on-surface-variant">
+                                <div class="flex items-center gap-2">
+                                    <img src="{{ $task->requester->avatar_url ?? 'https://ui-avatars.com/api/?name='.urlencode($task->requester->name).'&color=FFFFFF&background=0040df' }}" class="w-6 h-6 rounded-full" alt="avatar">
+                                    {{ $task->requester->name }}
+                                </div>
                             </td>
                             <td class="p-5">
                                 <span class="bg-surface-container-high text-on-surface px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide">{{ $task->category }}</span>

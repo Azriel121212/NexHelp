@@ -58,7 +58,7 @@
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="bg-surface-container-low text-on-surface font-body-md min-h-screen flex" x-data="{ sidebarOpen: false }">
+<body class="bg-surface-container-low text-on-surface font-body-md h-screen overflow-hidden flex" x-data="{ sidebarOpen: false }">
 
     <!-- Sidebar Overlay for Mobile -->
     <div x-show="sidebarOpen" x-transition.opacity 
@@ -104,7 +104,7 @@
     </aside>
 
     <!-- Main Content Shell -->
-    <div class="flex-1 flex flex-col min-h-screen overflow-hidden">
+    <div class="flex-1 flex flex-col h-screen overflow-hidden">
         
         <!-- Top Navbar -->
         <header class="h-16 bg-white shrink-0 flex items-center justify-between px-4 lg:px-8 shadow-sm z-30">

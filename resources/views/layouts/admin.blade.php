@@ -80,17 +80,17 @@
         <!-- Navigation Links -->
         <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1">
             <p class="px-3 text-xs font-bold text-white/40 uppercase tracking-wider mb-2 mt-4">Dashboard</p>
-            <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/20 text-primary-fixed-dim font-bold transition-colors">
+            <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg {{ request()->routeIs('admin.dashboard') ? 'bg-primary/20 text-primary-fixed-dim font-bold' : 'text-white/70 hover:bg-white/5 hover:text-white' }} transition-colors">
                 <span class="material-symbols-outlined text-[20px]">dashboard</span>
                 Overview
             </a>
 
             <p class="px-3 text-xs font-bold text-white/40 uppercase tracking-wider mb-2 mt-6">Manajemen</p>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors">
+            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors cursor-not-allowed opacity-50" title="Coming soon">
                 <span class="material-symbols-outlined text-[20px]">people</span>
                 Users
             </a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors">
+            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors cursor-not-allowed opacity-50" title="Coming soon">
                 <span class="material-symbols-outlined text-[20px]">task</span>
                 Semua Tugas
             </a>
@@ -131,21 +131,21 @@
         </header>
 
         <!-- Dynamic Content Area -->
-        <main class="flex-1 overflow-y-auto bg-surface-container-low relative">
+        <main class="flex-1 overflow-y-auto bg-surface-container-low flex flex-col">
             
             <!-- Aesthetic Colored Header Background -->
-            <div class="absolute top-0 left-0 w-full h-64 bg-primary z-0">
+            <div class="bg-primary relative z-0 shrink-0">
                 <!-- Subtle pattern or gradient inside -->
                 <div class="absolute inset-0 bg-gradient-to-b from-primary to-primary-container opacity-90"></div>
                 <!-- Title in header -->
-                <div class="relative z-10 px-4 lg:px-8 pt-8 text-white">
+                <div class="relative z-10 px-4 lg:px-8 pt-8 pb-20 text-white">
                     <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">@yield('page_title', 'Projects Overview')</h1>
                     <p class="text-primary-fixed-dim text-sm mt-1">@yield('page_description', 'Pantau aktivitas aplikasi secara real-time')</p>
                 </div>
             </div>
 
             <!-- Yield Content (Will be pulled up via negative margin) -->
-            <div class="relative z-10 px-4 lg:px-8 pb-12 pt-8">
+            <div class="relative z-10 px-4 lg:px-8 pb-12 -mt-10 flex-1">
                 @yield('content')
             </div>
 

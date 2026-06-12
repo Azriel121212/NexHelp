@@ -7,42 +7,42 @@
 
     <!-- Stats -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
-        <div class="bg-gradient-to-br from-primary/10 to-primary-container/20 rounded-3xl p-6 shadow-sm border border-primary/20 flex items-center gap-5 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-            <div class="w-14 h-14 rounded-2xl bg-primary text-white flex justify-center items-center shadow-inner">
+        <div class="bg-surface rounded-3xl p-6 shadow-sm border border-surface-bright flex items-center gap-5 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+            <div class="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex justify-center items-center shadow-inner">
                 <span class="material-symbols-outlined text-2xl">group</span>
             </div>
             <div>
-                <p class="text-primary text-xs font-bold uppercase tracking-wider mb-1">Total Users</p>
+                <p class="text-on-surface-variant text-xs font-bold uppercase tracking-wider mb-1">Total Users</p>
                 <h3 class="text-3xl font-extrabold text-on-surface">{{ $totalUsers }}</h3>
             </div>
         </div>
         
-        <div class="bg-gradient-to-br from-[#FFB400]/10 to-[#FFB400]/20 rounded-3xl p-6 shadow-sm border border-[#FFB400]/20 flex items-center gap-5 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-            <div class="w-14 h-14 rounded-2xl bg-[#FFB400] text-[#4A3400] flex justify-center items-center shadow-inner">
+        <div class="bg-surface rounded-3xl p-6 shadow-sm border border-surface-bright flex items-center gap-5 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+            <div class="w-14 h-14 rounded-2xl bg-[#FFB400]/10 text-[#FFB400] flex justify-center items-center shadow-inner">
                 <span class="material-symbols-outlined text-2xl">task</span>
             </div>
             <div>
-                <p class="text-[#4A3400] text-xs font-bold uppercase tracking-wider mb-1">Total Tasks</p>
+                <p class="text-on-surface-variant text-xs font-bold uppercase tracking-wider mb-1">Total Tasks</p>
                 <h3 class="text-3xl font-extrabold text-on-surface">{{ $totalTasks }}</h3>
             </div>
         </div>
         
-        <div class="bg-gradient-to-br from-error/10 to-error-container/30 rounded-3xl p-6 shadow-sm border border-error/20 flex items-center gap-5 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-            <div class="w-14 h-14 rounded-2xl bg-error text-white flex justify-center items-center shadow-inner">
+        <div class="bg-surface rounded-3xl p-6 shadow-sm border border-surface-bright flex items-center gap-5 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+            <div class="w-14 h-14 rounded-2xl bg-error/10 text-error flex justify-center items-center shadow-inner">
                 <span class="material-symbols-outlined text-2xl">pending_actions</span>
             </div>
             <div>
-                <p class="text-error text-xs font-bold uppercase tracking-wider mb-1">Active Tasks</p>
+                <p class="text-on-surface-variant text-xs font-bold uppercase tracking-wider mb-1">Active Tasks</p>
                 <h3 class="text-3xl font-extrabold text-on-surface">{{ $activeTasks }}</h3>
             </div>
         </div>
 
-        <div class="bg-gradient-to-br from-secondary/10 to-secondary-container/20 rounded-3xl p-6 shadow-sm border border-secondary/20 flex items-center gap-5 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-            <div class="w-14 h-14 rounded-2xl bg-secondary text-on-secondary flex justify-center items-center shadow-inner">
+        <div class="bg-surface rounded-3xl p-6 shadow-sm border border-surface-bright flex items-center gap-5 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+            <div class="w-14 h-14 rounded-2xl bg-secondary/10 text-secondary flex justify-center items-center shadow-inner">
                 <span class="material-symbols-outlined text-2xl">toll</span>
             </div>
             <div>
-                <p class="text-secondary text-xs font-bold uppercase tracking-wider mb-1">Total Poin Beredar</p>
+                <p class="text-on-surface-variant text-xs font-bold uppercase tracking-wider mb-1">Poin Beredar</p>
                 <h3 class="text-3xl font-extrabold text-on-surface">{{ number_format($totalPointsCirculating, 0, ',', '.') }}</h3>
             </div>
         </div>

@@ -170,12 +170,13 @@
                                 </span>
                             </td>
                             <td class="p-5 text-right opacity-80 group-hover:opacity-100 transition-opacity">
-                                @if(!$report->reported->is_banned)
-                                <form action="{{ route('admin.user.ban', $report->reported_id) }}" method="POST" class="inline">
+                                @if(!$report->reported->isBanned() || ($report->reported->isBanned() && !$report->reported->is_banned))
+                                <form id="ban-form-{{ $report->reported_id }}" action="{{ route('admin.user.ban', $report->reported_id) }}" method="POST" class="inline">
                                     @csrf
-                                    <input type="hidden" name="report_id" value="{{ $report->id }}">
-                                    <button type="submit" onclick="return confirm('Yakin mau nge-BANNED {{ $report->reported->name }}? Dia nggak bakal bisa login lagi.')" class="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-gradient-to-r from-error to-[#ff6b6b] px-4 py-2 rounded-xl hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
-                                        <span class="material-symbols-outlined text-[16px]">block</span> Banned User
+                                    <input type="hidden" name="report_id" id="ban-report-{{ $report->reported_id }}" value="{{ $report->id }}">
+                                    <input type="hidden" name="duration" id="ban-duration-{{ $report->reported_id }}" value="">
+                                    <button type="button" onclick="banUserOptions({{ $report->reported_id }}, '{{ addslashes($report->reported->name) }}', {{ $report->id }})" class="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-gradient-to-r from-error to-[#ff6b6b] px-4 py-2 rounded-xl hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                                        <span class="material-symbols-outlined text-[16px]">block</span> Tindak User
                                     </button>
                                 </form>
                                 @else
@@ -355,6 +356,43 @@
                 form.submit();
             }
         })
+    }
+
+    function banUserOptions(userId, userName, reportId = null) {
+        Swal.fire({
+            title: 'Tindak User: ' + userName,
+            text: 'Pilih jenis sanksi yang akan diberikan:',
+            icon: 'warning',
+            input: 'select',
+            inputOptions: {
+                '1': 'Suspend 1 Hari',
+                '3': 'Suspend 3 Hari',
+                '7': 'Suspend 7 Hari',
+                '14': 'Suspend 14 Hari',
+                '30': 'Suspend 1 Bulan',
+                'permanent': 'Banned Permanen'
+            },
+            inputPlaceholder: 'Pilih durasi sanksi...',
+            showCancelButton: true,
+            confirmButtonColor: '#ba1a1a',
+            cancelButtonColor: '#747688',
+            confirmButtonText: 'Terapkan',
+            cancelButtonText: 'Batal',
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Anda harus memilih salah satu opsi!'
+                }
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('ban-duration-' + userId).value = result.value;
+                if (reportId) {
+                    const reportInput = document.getElementById('ban-report-' + userId);
+                    if (reportInput) reportInput.value = reportId;
+                }
+                document.getElementById('ban-form-' + userId).submit();
+            }
+        });
     }
 
     // Polling Pending Tasks every 5 seconds

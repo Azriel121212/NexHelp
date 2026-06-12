@@ -147,10 +147,20 @@ class AdminController extends Controller
         }
 
         $user = User::findOrFail($id);
+        $duration = $request->input('duration', 'permanent'); // '1', '3', '7', '14', '30', 'permanent'
         
-        // Cek kalau belum dibanned, ban dia
-        if (!$user->is_banned) {
-            $user->is_banned = true;
+        // Cek kalau belum dibanned
+        if (!$user->isBanned() || ($user->isBanned() && $request->has('duration'))) {
+            if ($duration === 'permanent') {
+                $user->is_banned = true;
+                $user->banned_until = null;
+                $message = "User {$user->name} berhasil di-banned permanen!";
+            } else {
+                $days = (int)$duration;
+                $user->is_banned = false;
+                $user->banned_until = now()->addDays($days);
+                $message = "User {$user->name} berhasil di-suspend selama {$days} hari!";
+            }
             $user->save();
 
             // Update status report jika dari halaman report
@@ -162,7 +172,7 @@ class AdminController extends Controller
                 }
             }
 
-            return back()->with('success', "User {$user->name} berhasil di-banned dari aplikasi!");
+            return back()->with('success', $message);
         }
 
         return back()->with('error', 'User sudah berstatus banned.');

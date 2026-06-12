@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password', 'major', 'faculty', 'points', 'nim', 'skills', 'bio', 'avatar'])]
+#[Fillable(['name', 'email', 'password', 'major', 'faculty', 'points', 'nim', 'skills', 'bio', 'avatar', 'banned_until'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -27,6 +27,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'banned_until' => 'datetime',
         ];
     }
 
@@ -64,5 +65,16 @@ class User extends Authenticatable
     public function tasksHelped()
     {
         return $this->hasMany(Task::class, 'helper_id');
+    }
+
+    public function isBanned()
+    {
+        if ($this->is_banned) {
+            return true;
+        }
+        if ($this->banned_until && $this->banned_until->isFuture()) {
+            return true;
+        }
+        return false;
     }
 }

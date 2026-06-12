@@ -34,21 +34,26 @@
                     <td class="p-5 font-bold text-secondary">{{ number_format($user->points, 0, ',', '.') }} pts</td>
                     <td class="p-5">
                         @if($user->is_banned)
-                            <span class="px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide shadow-sm bg-error text-white">Banned</span>
+                            <span class="px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide shadow-sm bg-error text-white">Banned Permanen</span>
+                        @elseif($user->banned_until && $user->banned_until->isFuture())
+                            <span class="px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide shadow-sm bg-[#FFB400] text-[#4A3400]" title="Sampai {{ $user->banned_until->format('d M Y H:i') }}">Suspend</span>
                         @else
                             <span class="px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide shadow-sm bg-tertiary-container text-white">Active</span>
                         @endif
                     </td>
                     <td class="p-5 text-right opacity-80 group-hover:opacity-100 transition-opacity">
-                        @if(!$user->is_admin && !$user->is_banned)
-                        <form action="{{ route('admin.user.ban', $user->id) }}" method="POST" class="inline">
-                            @csrf
-                            <button type="submit" onclick="return confirm('Yakin mau nge-BANNED {{ $user->name }}?')" class="inline-flex items-center gap-1.5 text-xs font-bold text-error hover:bg-error hover:text-white border border-error px-4 py-2 rounded-xl transition-all duration-300">
-                                <span class="material-symbols-outlined text-[16px]">block</span> Banned
-                            </button>
-                        </form>
-                        @elseif($user->is_banned)
-                            <span class="text-xs font-bold text-on-surface-variant bg-surface-container px-3 py-1.5 rounded-lg border border-surface-bright italic">Banned</span>
+                        @if(!$user->is_admin)
+                            @if(!$user->is_banned)
+                            <form id="ban-form-{{ $user->id }}" action="{{ route('admin.user.ban', $user->id) }}" method="POST" class="inline">
+                                @csrf
+                                <input type="hidden" name="duration" id="ban-duration-{{ $user->id }}" value="">
+                                <button type="button" onclick="banUserOptions({{ $user->id }}, '{{ addslashes($user->name) }}')" class="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-gradient-to-r from-error to-[#ff6b6b] px-4 py-2 rounded-xl hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                                    <span class="material-symbols-outlined text-[16px]">block</span> Tindak User
+                                </button>
+                            </form>
+                            @else
+                            <span class="text-xs font-bold text-error bg-error/10 px-3 py-1.5 rounded-lg border border-error/20">Banned Permanen</span>
+                            @endif
                         @endif
                     </td>
                 </tr>
@@ -62,4 +67,42 @@
     </div>
     @endif
 </div>
+<script>
+    function banUserOptions(userId, userName, reportId = null) {
+        Swal.fire({
+            title: 'Tindak User: ' + userName,
+            text: 'Pilih jenis sanksi yang akan diberikan:',
+            icon: 'warning',
+            input: 'select',
+            inputOptions: {
+                '1': 'Suspend 1 Hari',
+                '3': 'Suspend 3 Hari',
+                '7': 'Suspend 7 Hari',
+                '14': 'Suspend 14 Hari',
+                '30': 'Suspend 1 Bulan',
+                'permanent': 'Banned Permanen'
+            },
+            inputPlaceholder: 'Pilih durasi sanksi...',
+            showCancelButton: true,
+            confirmButtonColor: '#ba1a1a',
+            cancelButtonColor: '#747688',
+            confirmButtonText: 'Terapkan',
+            cancelButtonText: 'Batal',
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Anda harus memilih salah satu opsi!'
+                }
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('ban-duration-' + userId).value = result.value;
+                if (reportId) {
+                    const reportInput = document.getElementById('ban-report-' + userId);
+                    if (reportInput) reportInput.value = reportId;
+                }
+                document.getElementById('ban-form-' + userId).submit();
+            }
+        });
+    }
+</script>
 @endsection

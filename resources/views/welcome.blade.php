@@ -11,27 +11,27 @@
 </div>
 
 <!-- Transparent Navbar -->
-<nav class="absolute top-0 w-full flex items-center justify-between px-6 py-4 z-50">
-    <div class="flex items-center gap-3">
-        <div class="w-10 h-10 bg-primary text-on-primary rounded-xl flex items-center justify-center shadow-lg transform -rotate-6">
-            <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">school</span>
+<nav class="absolute top-0 w-full flex items-center justify-between px-4 sm:px-6 py-4 z-50 gap-2">
+    <div class="flex items-center gap-2 sm:gap-3">
+        <div class="w-8 h-8 sm:w-10 sm:h-10 bg-primary text-on-primary rounded-xl flex items-center justify-center shadow-lg transform -rotate-6 shrink-0">
+            <span class="material-symbols-outlined text-xl sm:text-2xl" style="font-variation-settings: 'FILL' 1;">school</span>
         </div>
-        <span class="font-headline-md text-2xl font-extrabold text-primary tracking-tight">KawanKampus</span>
+        <span class="font-headline-md text-xl sm:text-2xl font-extrabold text-primary tracking-tight">KawanKampus</span>
     </div>
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2 sm:gap-3 shrink-0">
         <a href="{{ route('login') }}" class="hidden sm:inline-block px-5 py-2.5 font-bold text-primary hover:bg-primary/5 rounded-xl transition-colors">Masuk</a>
-        <a href="{{ route('register') }}" class="px-5 py-2.5 bg-primary text-on-primary font-bold rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all">Daftar Sekarang</a>
+        <a href="{{ route('register') }}" class="px-4 py-2 sm:px-5 sm:py-2.5 bg-primary text-on-primary text-sm sm:text-base font-bold rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all whitespace-nowrap">Daftar</a>
     </div>
 </nav>
 
 <!-- Hero Section -->
-<main class="min-h-[90vh] flex flex-col items-center justify-center px-4 pt-20 relative">
+<main class="min-h-[90vh] flex flex-col items-center justify-center px-4 pt-28 sm:pt-20 relative">
     <div class="max-w-4xl w-full text-center space-y-6">
-        <div class="inline-flex items-center gap-2 bg-surface-container-high/50 backdrop-blur-md px-4 py-2 rounded-full border border-surface-bright/50 text-sm font-bold text-on-surface-variant mb-4 animate-[bounce_2s_infinite]">
-            <span class="material-symbols-outlined text-[#FFB400] text-[18px]">verified</span>
+        <div class="inline-flex items-center gap-2 bg-surface-container-high/50 backdrop-blur-md px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-surface-bright/50 text-xs sm:text-sm font-bold text-on-surface-variant mb-2 sm:mb-4 animate-[bounce_2s_infinite]">
+            <span class="material-symbols-outlined text-[#FFB400] text-[16px] sm:text-[18px]">verified</span>
             Platform Kolaborasi Mahasiswa #1
         </div>
-        <h1 class="text-5xl md:text-7xl font-extrabold text-on-surface tracking-tight leading-tight">
+        <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold text-on-surface tracking-tight leading-tight">
             Saling Bantu, Kumpulkan Poin, <br class="hidden md:block">
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[#ff6b6b]">Jadilah Pahlawan Kampus!</span>
         </h1>

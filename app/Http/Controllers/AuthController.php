@@ -24,7 +24,7 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $request->session()->flash('welcome_message', 'Hai ' . Auth::user()->name . '! Selamat datang kembali di KawanKampus.');
-            return redirect()->intended('/');
+            return redirect()->intended('/home');
         }
 
         return back()->withErrors([
@@ -66,7 +66,7 @@ class AuthController extends Controller
 
         $request->session()->flash('welcome_message', 'Hai ' . $user->name . '! Akun Anda berhasil dibuat. Selamat datang di KawanKampus!');
 
-        return redirect('/');
+        return redirect()->route('home');
     }
 
     public function logout(Request $request)

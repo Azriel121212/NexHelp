@@ -13,8 +13,15 @@ Route::get('/register', [AuthController::class, 'showRegister'])->name('register
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::get('/', function () {
+    if (Auth::check()) {
+        return redirect()->route('home');
+    }
+    return view('welcome');
+})->name('welcome');
+
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/task/create', [TaskController::class, 'create'])->name('task.create');
     Route::post('/task', [TaskController::class, 'store'])->name('task.store');
     Route::post('/task/{task}/cancel', [TaskController::class, 'cancel'])->name('task.cancel');

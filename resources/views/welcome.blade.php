@@ -58,8 +58,8 @@
             <div class="w-14 h-14 bg-primary-container text-on-primary-container rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <span class="material-symbols-outlined text-3xl">handshake</span>
             </div>
-            <h3 class="text-2xl font-bold text-on-surface mb-3">Saling Bantu</h3>
-            <p class="text-on-surface-variant leading-relaxed">Dari tugas koding, review jurnal, sampai pinjam buku. Ada banyak teman sekampus yang siap jadi penyelamatmu.</p>
+            <h3 class="text-2xl font-bold text-on-surface mb-3">Saling Kolaborasi</h3>
+            <p class="text-on-surface-variant leading-relaxed">Dari diskusi proyek bareng, review jurnal, sampai nyari relawan kuesioner. Ada banyak teman sekampus yang siap jadi partner kolaborasimu.</p>
         </div>
 
         <!-- Feature 2 -->

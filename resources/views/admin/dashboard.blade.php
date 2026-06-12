@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('title', 'Admin Dashboard')
 @section('page_title', 'Dashboard')
-@section('page_description', 'Pusat Kendali Data NexHelp')
+@section('page_description', 'Pusat Kendali Data KawanKampus')
 
 @section('content')
 

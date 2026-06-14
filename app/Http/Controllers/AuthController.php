@@ -48,6 +48,9 @@ class AuthController extends Controller
             'faculty' => ['required', 'string', 'max:100'],
             'skills' => ['nullable', 'string', 'max:255'],
             'bio' => ['nullable', 'string', 'max:500'],
+        ], [
+            'nim.unique' => 'NIM ini sudah terdaftar. Silakan gunakan NIM lain atau coba login.',
+            'email.unique' => 'Email kampus ini sudah terdaftar. Silakan gunakan email lain atau coba login.',
         ]);
 
         $user = User::create([

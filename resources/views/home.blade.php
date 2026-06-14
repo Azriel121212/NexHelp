@@ -81,7 +81,7 @@
                     'Bantuan Penelitian / Kuesioner', 
                     'Bantuan Event / Kepanitiaan',
                     'Pinjam Buku / Referensi', 
-                    'Bantuan Umum / Keseharian'
+                    'Keperluan Kampus Lainnya'
                 ];
             @endphp
             @foreach($categories as $cat)

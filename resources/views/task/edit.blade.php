@@ -39,7 +39,7 @@
                 <option value="Bantuan Penelitian / Kuesioner" {{ old('category', $task->category) == 'Bantuan Penelitian / Kuesioner' ? 'selected' : '' }}>Bantuan Penelitian / Kuesioner</option>
                 <option value="Bantuan Event / Kepanitiaan" {{ old('category', $task->category) == 'Bantuan Event / Kepanitiaan' ? 'selected' : '' }}>Bantuan Event / Kepanitiaan</option>
                 <option value="Pinjam Buku / Referensi" {{ old('category', $task->category) == 'Pinjam Buku / Referensi' ? 'selected' : '' }}>Pinjam Buku / Alat Praktikum</option>
-                <option value="Bantuan Umum / Keseharian" {{ old('category', $task->category) == 'Bantuan Umum / Keseharian' ? 'selected' : '' }}>Bantuan Umum / Keseharian</option>
+                <option value="Keperluan Kampus Lainnya" {{ old('category', $task->category) == 'Keperluan Kampus Lainnya' ? 'selected' : '' }}>Keperluan Kampus Lainnya</option>
             </select>
         </section>
 

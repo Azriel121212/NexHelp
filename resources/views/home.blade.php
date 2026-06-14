@@ -78,7 +78,7 @@
                     'Tutor / Teman Belajar', 
                     'Diskusi Koding / Proyek', 
                     'Review Jurnal / Proofreading', 
-                    'Bantuan Penelitian / Kuesioner', 
+                    'Responden Kuesioner / Wawancara', 
                     'Bantuan Event / Kepanitiaan',
                     'Pinjam Buku / Referensi', 
                     'Keperluan Kampus Lainnya'

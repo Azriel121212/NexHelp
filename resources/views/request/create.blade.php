@@ -35,7 +35,7 @@
                 <option value="Tutor / Teman Belajar" {{ old('category') == 'Tutor / Teman Belajar' ? 'selected' : '' }}>Tutor / Teman Belajar</option>
                 <option value="Diskusi Koding / Proyek" {{ old('category') == 'Diskusi Koding / Proyek' ? 'selected' : '' }}>Diskusi Koding / Proyek</option>
                 <option value="Review Jurnal / Proofreading" {{ old('category') == 'Review Jurnal / Proofreading' ? 'selected' : '' }}>Review Jurnal / Proofreading</option>
-                <option value="Bantuan Penelitian / Kuesioner" {{ old('category') == 'Bantuan Penelitian / Kuesioner' ? 'selected' : '' }}>Bantuan Penelitian / Kuesioner</option>
+                <option value="Responden Kuesioner / Wawancara" {{ old('category') == 'Responden Kuesioner / Wawancara' ? 'selected' : '' }}>Responden Kuesioner / Wawancara</option>
                 <option value="Bantuan Event / Kepanitiaan" {{ old('category') == 'Bantuan Event / Kepanitiaan' ? 'selected' : '' }}>Bantuan Event / Kepanitiaan</option>
                 <option value="Pinjam Buku / Referensi" {{ old('category') == 'Pinjam Buku / Referensi' ? 'selected' : '' }}>Pinjam Buku / Alat Praktikum</option>
                 <option value="Keperluan Kampus Lainnya" {{ old('category') == 'Keperluan Kampus Lainnya' ? 'selected' : '' }}>Keperluan Kampus Lainnya</option>
